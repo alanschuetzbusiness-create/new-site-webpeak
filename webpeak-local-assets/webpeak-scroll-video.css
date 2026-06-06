@@ -1,0 +1,217 @@
+.webpeak-scroll-video {
+  margin-top: clamp(2.5rem, 6vw, 5.5rem);
+  height: 230vh;
+  position: relative;
+}
+
+.webpeak-scroll-video_sticky {
+  position: sticky;
+  top: clamp(5rem, 12vh, 7rem);
+  min-height: min(58vh, 36rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webpeak-scroll-video_frame {
+  width: min(100%, 52rem);
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(179, 211, 230, .9);
+  border-radius: var(--border-radius--border-radius-large);
+  background-color: var(--main-colors--blue-100);
+  box-shadow: inset 0 0 24px rgba(207, 227, 238, .72), 0 28px 80px rgba(75, 98, 114, .18);
+  overflow: hidden;
+  transform: translate3d(0, 1.4rem, 0) scale(.92);
+  will-change: transform, opacity;
+}
+
+.webpeak-scroll-video_media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background-color: var(--main-colors--blue-100);
+  transform: translate3d(0, -8%, 0) scale(1.12);
+  will-change: transform;
+}
+
+.webpeak-scroll-video.is-journey {
+  width: 100%;
+  height: auto;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.webpeak-scroll-video.is-journey .webpeak-scroll-video_sticky {
+  position: relative;
+  top: auto;
+  min-height: 0;
+}
+
+.webpeak-scroll-video.is-journey .webpeak-scroll-video_frame {
+  width: min(100%, 24rem);
+  aspect-ratio: 1;
+  border-radius: var(--border-radius--border-radius-medium);
+  box-shadow: inset 0 0 22px rgba(207, 227, 238, .68), 0 20px 54px rgba(75, 98, 114, .16);
+}
+
+.webpeak-scroll-video.is-journey .webpeak-scroll-video_media {
+  object-fit: cover;
+}
+
+#webpeak-journey .timeline_line {
+  background-color: #FFBF00 !important;
+  opacity: .34;
+  width: 2px;
+}
+
+#webpeak-journey .timeline_progress-line {
+  background-color: #FFBF00 !important;
+  width: 2px;
+  height: 100%;
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+}
+
+#webpeak-journey .timeline_circle {
+  background-color: #FFBF00 !important;
+  width: .72rem;
+  height: .72rem;
+  box-shadow: 0 0 0 9px var(--neutral-colors--white), 0 0 18px rgba(255, 191, 0, .28);
+}
+
+#webpeak-journey .timeline_progress {
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+}
+
+#webpeak-journey .timeline_component.is-timeline-ready .timeline_progress {
+  opacity: 1;
+}
+
+#webpeak-journey .timeline_item {
+  opacity: .34;
+  transform: translate3d(0, 1.6rem, 0) scale(.985);
+  transition: opacity 520ms cubic-bezier(.22, 1, .36, 1), transform 520ms cubic-bezier(.22, 1, .36, 1), box-shadow 520ms cubic-bezier(.22, 1, .36, 1);
+  will-change: opacity, transform;
+}
+
+#webpeak-journey .timeline_item.is-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  box-shadow: inset 0 0 22px rgba(207, 227, 238, .72), 0 20px 56px rgba(75, 98, 114, .12);
+}
+
+#webpeak-journey .timeline_heading {
+  max-width: none;
+  font-family: var(--fonts--space-grotesk);
+  font-size: var(--text-size--h3);
+  line-height: var(--line-height--headings);
+  font-weight: var(--fonts-weight--headings);
+  letter-spacing: -.03em;
+}
+
+#webpeak-demo {
+  --webpeak-demo-bg-progress: var(--webpeak-demo-bg-fade, 0);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #eef4f7;
+}
+
+#webpeak-demo::before,
+#kontakt.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--webpeak-demo-bg-fade, 0);
+  background-image: linear-gradient(90deg, rgba(247, 252, 255, .86), rgba(247, 252, 255, .72)), url("./d15f641718-6935f58b57680d61ea8ef608_mountains-sky-left.avif");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  will-change: opacity;
+}
+
+#webpeak-demo .mountauns-background.is-demo {
+  display: none;
+}
+
+#webpeak-demo .padding-global {
+  position: relative;
+  z-index: 1;
+}
+
+#kontakt.footer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin: 0;
+  padding: clamp(1rem, 2.4vw, 1.5rem);
+  border-radius: 0;
+  background-color: #eef4f7;
+}
+
+#kontakt.footer > .padding-global {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background-color: var(--neutral-colors--white);
+  border-radius: clamp(2rem, 4vw, 4rem);
+}
+
+.webpeak-pricing-banner .banner_component {
+  width: 120vw;
+  margin-left: -10vw;
+}
+
+.webpeak-pricing-banner .banner_marquee-wrapper {
+  min-width: 120vw;
+}
+
+.webpeak-pricing-banner .banner_marquee {
+  flex: 0 0 auto;
+  will-change: transform;
+}
+
+@media screen and (max-width: 767px) {
+  .webpeak-scroll-video {
+    height: auto;
+    margin-top: 3rem;
+  }
+
+  .webpeak-scroll-video_sticky {
+    position: relative;
+    top: auto;
+    min-height: 0;
+  }
+
+  .webpeak-scroll-video_frame,
+  .webpeak-scroll-video_media {
+    transform: none !important;
+  }
+
+  .webpeak-scroll-video.is-journey {
+    display: none;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .webpeak-scroll-video {
+    height: auto;
+  }
+
+  .webpeak-scroll-video_sticky {
+    position: relative;
+    top: auto;
+  }
+
+  .webpeak-scroll-video_frame,
+  .webpeak-scroll-video_media {
+    transform: none !important;
+  }
+}

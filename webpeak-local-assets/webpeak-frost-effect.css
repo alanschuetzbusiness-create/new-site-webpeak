@@ -1,0 +1,59 @@
+.main-wrapper.webpeak-frost-ready {
+  position: relative;
+  isolation: isolate;
+}
+
+.webpeak-frost-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 5;
+  opacity: .5;
+  mix-blend-mode: normal;
+}
+
+.main-wrapper.webpeak-frost-ready > header {
+  position: relative;
+  z-index: 4;
+}
+
+.main-wrapper.webpeak-frost-ready > section {
+  position: relative;
+  z-index: 2;
+}
+
+.webpeak-frost-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(.72);
+  background: radial-gradient(circle at 38% 34%, #f4fbff 0 16%, #8eb6ca 36%, #587c92 62%, #4b6272 86%, rgba(75, 98, 114, 0) 100%);
+  box-shadow: 0 0 14px rgba(88, 124, 146, .42), 0 0 30px rgba(75, 98, 114, .24);
+  transition: opacity 140ms ease-out, transform 140ms ease-out;
+}
+
+.webpeak-frost-cursor-active,
+.webpeak-frost-cursor-active * {
+  cursor: none !important;
+}
+
+.webpeak-frost-cursor-active .webpeak-frost-dot {
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) scale(1);
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .webpeak-frost-canvas,
+  .webpeak-frost-dot {
+    display: none;
+  }
+}
