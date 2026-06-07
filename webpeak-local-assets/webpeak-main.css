@@ -5097,6 +5097,7 @@ figcaption {
   .reference-scroll_card {
     border-radius: 2.25rem;
     width: 5.75rem;
+    transition: transform .32s cubic-bezier(.22, 1, .36, 1), width .24s cubic-bezier(.22, 1, .36, 1), opacity .18s ease-out;
   }
 
   .reference-scroll_card.is-active {
@@ -5134,12 +5135,18 @@ figcaption {
     width: 88%;
     max-height: 52%;
     top: 41%;
-    transition: opacity .2s ease-out, transform .28s cubic-bezier(.22, 1, .36, 1);
+    transform: translate3d(-50%, -50%, 0) scale(1);
+    transition: opacity .18s ease-out;
+    will-change: opacity;
   }
 
   .reference-scroll_card:not(.is-active) .reference-scroll_project-image {
     opacity: 0;
-    transform: translate3d(-50%, -50%, 0) scale(.98);
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+
+  .reference-scroll_card.is-active .reference-scroll_project-image {
+    transform: translate3d(-50%, -50%, 0) scale(1);
   }
 
   .reference-scroll_badge {
