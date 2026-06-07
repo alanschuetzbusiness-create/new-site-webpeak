@@ -9573,3 +9573,30 @@ html {
     width: 10rem;
   }
 }
+
+@media screen and (max-width: 991px) {
+  .navbar_menu-button {
+    overflow: hidden;
+  }
+
+  .navbar_menu-button .menu {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .navbar_menu-button .menu-lottie {
+    display: none !important;
+  }
+
+  .navbar_menu-button .menu::before {
+    content: "";
+    width: 2rem;
+    height: 1.35rem;
+    background:
+      linear-gradient(#151719, #151719) top / 100% 3px no-repeat,
+      linear-gradient(#151719, #151719) center / 100% 3px no-repeat,
+      linear-gradient(#151719, #151719) bottom / 100% 3px no-repeat;
+    border-radius: 2px;
+    display: block;
+  }
+}
