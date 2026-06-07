@@ -9576,12 +9576,7 @@ html {
 
 @media screen and (max-width: 991px) {
   .navbar_component {
-    transition: width .22s cubic-bezier(.22, 1, .36, 1), height .22s cubic-bezier(.22, 1, .36, 1), padding .22s cubic-bezier(.22, 1, .36, 1), box-shadow .22s cubic-bezier(.22, 1, .36, 1), background-color .22s cubic-bezier(.22, 1, .36, 1);
-  }
-
-  .navbar_component.is-scroll-minimized .navbar_links,
-  .navbar_component.is-scroll-minimized .navbar_button-wrapper {
-    transition: opacity .12s ease-out, visibility .12s ease-out;
+    transition: box-shadow .16s ease-out, background-color .16s ease-out;
   }
 
   .navbar_menu-button .menu-lottie {
