@@ -5107,6 +5107,7 @@ figcaption {
     --reference-active-width: 78vw;
     --reference-slim-width: 5.75rem;
     height: 28rem;
+    touch-action: pan-y;
   }
 
   .reference-scroll_content {
@@ -5133,6 +5134,12 @@ figcaption {
     width: 88%;
     max-height: 52%;
     top: 41%;
+    transition: opacity .2s ease-out, transform .28s cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .reference-scroll_card:not(.is-active) .reference-scroll_project-image {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(.98);
   }
 
   .reference-scroll_badge {

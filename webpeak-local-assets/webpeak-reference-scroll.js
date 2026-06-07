@@ -7,6 +7,10 @@
     var cards = Array.prototype.slice.call(section.querySelectorAll(".reference-scroll_card"));
     var previous = section.querySelector("[data-reference-prev]");
     var next = section.querySelector("[data-reference-next]");
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchMoved = false;
+    var lastSwipeAt = 0;
     var activeIndex = Math.max(0, cards.findIndex(function (card) {
       return card.classList.contains("is-active");
     }));
@@ -30,6 +34,10 @@
 
     cards.forEach(function (card, index) {
       card.addEventListener("click", function (event) {
+        if (Date.now() - lastSwipeAt < 350) {
+          event.preventDefault();
+          return;
+        }
         if (card.classList.contains("is-active")) {
           event.preventDefault();
           window.open(card.href, "_blank", "noopener");
@@ -39,6 +47,33 @@
         focusCard(index);
       });
     });
+
+    if (track) {
+      track.addEventListener("touchstart", function (event) {
+        if (!event.touches || event.touches.length !== 1) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+        touchMoved = false;
+      }, { passive: true });
+
+      track.addEventListener("touchmove", function (event) {
+        if (!event.touches || event.touches.length !== 1) return;
+        var deltaX = event.touches[0].clientX - touchStartX;
+        var deltaY = event.touches[0].clientY - touchStartY;
+        if (Math.abs(deltaX) > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.15) {
+          touchMoved = true;
+          event.preventDefault();
+        }
+      }, { passive: false });
+
+      track.addEventListener("touchend", function (event) {
+        if (!touchMoved || !event.changedTouches || !event.changedTouches.length) return;
+        var deltaX = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(deltaX) < 44) return;
+        lastSwipeAt = Date.now();
+        focusCard(activeIndex + (deltaX < 0 ? 1 : -1));
+      });
+    }
 
     if (previous) {
       previous.addEventListener("click", function () {
