@@ -132,7 +132,7 @@
     }
 
     if (isJourneyVideo && timelineProgressWrap && timelineCircles.length > 1) {
-      var firstCircle = timelineCircles[1] || timelineCircles[0];
+      var firstCircle = timelineCircles[0];
       var lastCircle = timelineCircles[timelineCircles.length - 1];
       var progressRect = timelineProgressWrap.getBoundingClientRect();
       var firstRect = firstCircle.getBoundingClientRect();
@@ -153,7 +153,12 @@
 
   function animate() {
     animationActive = false;
-    smoothProgress += (targetProgress - smoothProgress) * .26;
+
+    if (targetProgress >= .999) {
+      smoothProgress = 1;
+    } else {
+      smoothProgress += (targetProgress - smoothProgress) * .26;
+    }
 
     if (Math.abs(targetProgress - smoothProgress) < .002) {
       smoothProgress = targetProgress;

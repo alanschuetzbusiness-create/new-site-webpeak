@@ -105,11 +105,12 @@
 })();
 
 (function () {
-  var bookingUrl = "https://calendly.com/alan-schuetz-webpeak/30min";
-  var personButton = document.querySelector(".webpeak-person-button:not(.webpeak-booking-button)");
-  if (!personButton) return;
+  var contactPageUrl = "https://calendly.com/alan-schuetz-webpeak/30min";
+  var contactButtons = document.querySelectorAll(".webpeak-person-button");
 
-  personButton.href = bookingUrl;
+  contactButtons.forEach(function (button) {
+    button.href = contactPageUrl;
+  });
 })();
 
 (function () {

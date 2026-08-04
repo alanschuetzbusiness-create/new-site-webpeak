@@ -8,6 +8,9 @@
     var progressWrap = timeline.querySelector(".timeline_progress");
     var progress = timeline.querySelector(".timeline_progress-line");
     var circles = Array.prototype.slice.call(timeline.querySelectorAll(".timeline_circle"));
+    var journeySection = timeline.closest("#webpeak-journey");
+    var contentRight = timeline.querySelector(".timeline_content-right");
+    var nextSection = journeySection ? journeySection.nextElementSibling : null;
 
     if (!rows.length || !progress) return;
 
@@ -16,6 +19,25 @@
     circles.forEach(function (circle) {
       circle.style.transition = "background-color 180ms ease-out, transform 180ms ease-out";
     });
+
+    function syncReleasePoint() {
+      if (!contentRight) return;
+
+      contentRight.style.paddingBottom = "0px";
+      if (window.matchMedia("(max-width: 991px), (prefers-reduced-motion: reduce)").matches || !nextSection) return;
+
+      var lastCircle = circles[circles.length - 1];
+      if (!lastCircle) return;
+
+      var lastRect = lastCircle.getBoundingClientRect();
+      var nextRect = nextSection.getBoundingClientRect();
+      var lastCenter = lastRect.top + lastRect.height / 2;
+      var playhead = window.innerHeight * 0.54;
+      var nextTopAtAnimationEnd = nextRect.top - (lastCenter - playhead);
+      var releasePadding = Math.max(0, window.innerHeight - nextTopAtAnimationEnd);
+
+      contentRight.style.paddingBottom = Math.ceil(releasePadding) + "px";
+    }
 
     function syncLineEnd() {
       var firstCircle = circles[0];
@@ -71,12 +93,15 @@
       });
     }
 
+    syncReleasePoint();
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", function () {
+      syncReleasePoint();
       syncLineEnd();
       update();
     });
+    window.addEventListener("load", syncReleasePoint, { once: true });
   }
 
   function init() {
