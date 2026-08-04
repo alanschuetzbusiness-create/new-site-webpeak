@@ -81,39 +81,6 @@
 
   function init() {
     document.querySelectorAll("#webpeak-journey .timeline_component").forEach(setupTimeline);
-    addLegalFooterLinks();
-  }
-
-  function addLegalFooterLinks() {
-    var navigationHeading = Array.from(document.querySelectorAll(".footer_divider")).find(function (heading) {
-      return heading.textContent.trim() === "Navigation";
-    });
-    if (!navigationHeading) return;
-
-    var linkList = navigationHeading.closest(".footer_link-column");
-    if (!linkList || linkList.querySelector('a[href="impressum.html"]')) return;
-
-    var linksContainer = linkList.querySelector(".footer_link-list > div") || linkList.querySelector(".footer_link-list");
-    var indentSource = linksContainer && linksContainer.querySelector(".navbar_indent");
-    if (!linksContainer || !indentSource) return;
-
-    [
-      { href: "impressum.html", label: "Impressum" },
-      { href: "datenschutz.html", label: "Datenschutz" },
-    ].forEach(function (item) {
-      var link = document.createElement("a");
-      link.href = item.href;
-      link.className = "navbar_dropdown-link w-inline-block";
-
-      var indent = indentSource.cloneNode(true);
-      indent.setAttribute("aria-hidden", "true");
-      indent.alt = "";
-
-      var label = document.createElement("div");
-      label.textContent = item.label;
-      link.append(indent, label);
-      linksContainer.appendChild(link);
-    });
   }
 
   if (document.readyState === "loading") {

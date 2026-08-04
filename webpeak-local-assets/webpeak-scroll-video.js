@@ -114,8 +114,8 @@
     var eased = 1 - Math.pow(1 - progress, 3);
     var frameY = 18 - eased * 30;
     var scale = .93 + eased * .07;
-    var mediaY = -2 + eased * 4;
-    var mediaScale = 1.06 - eased * .02;
+    var mediaY = isJourneyVideo ? 0 : -2 + eased * 4;
+    var mediaScale = isJourneyVideo ? 1 : 1.06 - eased * .02;
     var opacity = .82 + eased * .18;
 
     frame.style.transform = "translate3d(0," + frameY.toFixed(2) + "px,0) scale(" + scale.toFixed(4) + ")";

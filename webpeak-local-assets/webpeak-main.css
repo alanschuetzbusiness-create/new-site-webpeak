@@ -9454,6 +9454,11 @@ html {
   align-items: start;
 }
 
+.webpeak-footer-columns .footer_link-column:first-child a[href="impressum.html"],
+.webpeak-footer-columns .footer_link-column:first-child a[href="datenschutz.html"] {
+  display: none;
+}
+
 .footer_menu-wrapper.webpeak-footer-columns {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-column: span 2;
@@ -9461,14 +9466,15 @@ html {
 
 @media screen and (min-width: 992px) {
   .footer_top-wrapper {
-    grid-column-gap: clamp(4rem, 8vw, 9rem);
-    grid-template-columns: minmax(18rem, 1fr) minmax(13rem, .75fr) minmax(13rem, .75fr);
+    --webpeak-footer-column-gap: clamp(2rem, 4vw, 5rem);
+    grid-column-gap: var(--webpeak-footer-column-gap);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: start;
   }
 
   .footer_menu-wrapper.webpeak-footer-columns {
-    grid-column-gap: clamp(3rem, 6vw, 7rem);
-    grid-template-columns: repeat(2, minmax(13rem, 1fr));
+    grid-column-gap: var(--webpeak-footer-column-gap);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-column: span 2;
     justify-self: stretch;
   }

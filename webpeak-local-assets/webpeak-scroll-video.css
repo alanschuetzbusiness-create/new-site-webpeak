@@ -55,7 +55,37 @@
 }
 
 .webpeak-scroll-video.is-journey .webpeak-scroll-video_media {
-  object-fit: cover;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 992px) {
+  #webpeak-journey .timeline_content-left {
+    --journey-sticky-offset: clamp(.75rem, 2vh, 1.5rem);
+    top: var(--journey-sticky-offset);
+    height: calc(100vh - (2 * var(--journey-sticky-offset)));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #webpeak-journey .webpeak-scroll-video.is-journey {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+  }
+
+  #webpeak-journey .webpeak-scroll-video.is-journey .webpeak-scroll-video_sticky {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  #webpeak-journey .webpeak-scroll-video.is-journey .webpeak-scroll-video_frame {
+    width: auto;
+    height: min(100%, 24rem);
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 #webpeak-journey .timeline_line {
@@ -110,6 +140,32 @@
   line-height: var(--line-height--headings);
   font-weight: var(--fonts-weight--headings);
   letter-spacing: -.03em;
+}
+
+.layout-list_right.is-reveal-ready .layout-list_item {
+  opacity: 0;
+  transform: translate3d(2rem, 1rem, 0) scale(.985);
+  transition:
+    opacity 680ms cubic-bezier(.16, 1, .3, 1),
+    transform 680ms cubic-bezier(.16, 1, .3, 1),
+    box-shadow 680ms cubic-bezier(.16, 1, .3, 1);
+  will-change: opacity, transform;
+}
+
+.layout-list_right.is-reveal-ready .layout-list_item.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  box-shadow: 0 16px 42px rgba(75, 98, 114, .08);
+}
+
+.webpeak-booking-action {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.webpeak-booking-button {
+  width: min(100%, 23rem);
 }
 
 #webpeak-demo {
@@ -213,5 +269,11 @@
   .webpeak-scroll-video_frame,
   .webpeak-scroll-video_media {
     transform: none !important;
+  }
+
+  .layout-list_right.is-reveal-ready .layout-list_item {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
