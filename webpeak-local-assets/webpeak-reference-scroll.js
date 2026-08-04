@@ -4,6 +4,32 @@
 
   sections.forEach(function (section) {
     var track = section.querySelector(".reference-scroll_track");
+    if (track && !track.querySelector('[href="https://lmcollection.com/"]')) {
+      var liquidMetalCard = document.createElement("a");
+      liquidMetalCard.href = "https://lmcollection.com/";
+      liquidMetalCard.target = "_blank";
+      liquidMetalCard.rel = "noopener";
+      liquidMetalCard.className = "reference-scroll_card is-hidden-right";
+      liquidMetalCard.innerHTML = [
+        '<img src="./webpeak-local-assets/041a00c4af-6935ef1518820fc925c2d302_mountains--with-sky.avif" loading="lazy" alt="Berglandschaft mit Himmel" class="reference-scroll_image">',
+        '<img src="./webpeak-local-assets/reference-sg-liquid-metal.png" loading="lazy" alt="Website Referenz von SG Liquid Metal Collection" class="reference-scroll_project-image">',
+        '<div class="reference-scroll_overlay"></div>',
+        '<div class="reference-scroll_content">',
+          '<div class="reference-scroll_badge"><img src="./webpeak-local-assets/reference-sg-liquid-metal-logo.png" loading="lazy" alt="Logo von SG Liquid Metal Collection" class="reference-scroll_badge-logo"></div>',
+          '<div>',
+            '<div class="reference-scroll_title">SG Liquid Metal Collection</div>',
+            '<div class="reference-scroll_text">Ikonische und international renommierte Schmuckmarke aus Miami.</div>',
+            '<div class="reference-scroll_link">lmcollection.com</div>',
+          '</div>',
+        '</div>'
+      ].join("");
+      var gwServicesCard = track.querySelector('[href="https://gwservices.ch/"]');
+      if (gwServicesCard) {
+        gwServicesCard.insertAdjacentElement("afterend", liquidMetalCard);
+      } else {
+        track.appendChild(liquidMetalCard);
+      }
+    }
     var cards = Array.prototype.slice.call(section.querySelectorAll(".reference-scroll_card"));
     var previous = section.querySelector("[data-reference-prev]");
     var next = section.querySelector("[data-reference-next]");
@@ -11,7 +37,10 @@
     var touchStartY = 0;
     var touchMoved = false;
     var lastSwipeAt = 0;
-    var activeIndex = Math.max(0, cards.findIndex(function (card) {
+    var defaultIndex = cards.findIndex(function (card) {
+      return card.href === "https://lmcollection.com/";
+    });
+    var activeIndex = defaultIndex >= 0 ? defaultIndex : Math.max(0, cards.findIndex(function (card) {
       return card.classList.contains("is-active");
     }));
 

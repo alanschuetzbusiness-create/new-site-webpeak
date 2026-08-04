@@ -4682,8 +4682,8 @@ figcaption {
 
 .reference-scroll_track {
   --reference-active-width: min(66vw, 48rem);
-  --reference-slim-width: clamp(6.5rem, 10vw, 8.5rem);
-  --reference-gap: 1rem;
+  --reference-slim-width: clamp(4.75rem, 7vw, 6.25rem);
+  --reference-gap: .75rem;
   scrollbar-width: none;
   height: clamp(24rem, 48vw, 34rem);
   margin-left: calc((100vw - min(100vw - 2rem, 80rem)) / -2);
@@ -4844,6 +4844,13 @@ figcaption {
   font-family: var(--fonts--space-grotesk);
   font-weight: 600;
   display: flex;
+}
+
+.reference-scroll_badge-logo {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  border-radius: 999rem;
 }
 
 .reference-scroll_title {
@@ -5096,7 +5103,7 @@ figcaption {
 
   .reference-scroll_card {
     border-radius: 2.25rem;
-    width: 5.75rem;
+    width: 4.5rem;
     transition: transform .32s cubic-bezier(.22, 1, .36, 1), width .24s cubic-bezier(.22, 1, .36, 1), opacity .18s ease-out;
   }
 
@@ -5106,7 +5113,8 @@ figcaption {
 
   .reference-scroll_track {
     --reference-active-width: 78vw;
-    --reference-slim-width: 5.75rem;
+    --reference-slim-width: 4.5rem;
+    --reference-gap: .65rem;
     height: 28rem;
     touch-action: pan-y;
   }
