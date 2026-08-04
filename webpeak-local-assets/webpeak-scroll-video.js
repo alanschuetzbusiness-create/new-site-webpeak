@@ -24,9 +24,29 @@
   var preloadedFrames = {};
   var loadedFrames = {};
   var pendingFrame = null;
+  var journeyStartDocument = null;
+  var journeyEndDocument = null;
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
+  }
+
+  function offsetWithin(element, ancestor) {
+    var offset = 0;
+    var current = element;
+    while (current && current !== ancestor) {
+      offset += current.offsetTop || 0;
+      current = current.offsetParent;
+    }
+    return offset;
+  }
+
+  function cacheJourneyBounds() {
+    if (!isJourneyVideo || !timelineProgressWrap || timelineCircles.length < 2) return;
+    var rootTop = progressRoot.getBoundingClientRect().top + window.scrollY;
+    var lastCircle = timelineCircles[timelineCircles.length - 1];
+    journeyStartDocument = rootTop + offsetWithin(frame, progressRoot) + frame.offsetHeight + 12;
+    journeyEndDocument = rootTop + offsetWithin(lastCircle, progressRoot) + lastCircle.offsetHeight / 2;
   }
 
   function padFrame(number) {
@@ -132,16 +152,11 @@
     }
 
     if (isJourneyVideo && timelineProgressWrap && timelineCircles.length > 1) {
-      var firstCircle = timelineCircles[0];
-      var lastCircle = timelineCircles[timelineCircles.length - 1];
-      var progressRect = timelineProgressWrap.getBoundingClientRect();
-      var firstRect = firstCircle.getBoundingClientRect();
-      var lastRect = lastCircle.getBoundingClientRect();
-      var firstCenter = firstRect.top + firstRect.height / 2 - progressRect.top;
-      var lastCenter = lastRect.top + lastRect.height / 2 - progressRect.top;
-      var playhead = window.innerHeight * 0.54 - progressRect.top;
+      if (journeyStartDocument === null || journeyEndDocument === null) cacheJourneyBounds();
+      var startScroll = journeyStartDocument - window.innerHeight;
+      var endScroll = journeyEndDocument - window.innerHeight * 0.54;
 
-      return clamp((playhead - firstCenter) / Math.max(1, lastCenter - firstCenter), 0, 1);
+      return clamp((window.scrollY - startScroll) / Math.max(1, endScroll - startScroll), 0, 1);
     }
 
     var rect = progressRoot.getBoundingClientRect();
@@ -207,6 +222,7 @@
     media.removeAttribute("loop");
   }
 
+  cacheJourneyBounds();
   update();
   window.addEventListener("scroll", requestUpdate, { passive: true });
   window.addEventListener("resize", requestUpdate);

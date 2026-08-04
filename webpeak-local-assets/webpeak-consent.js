@@ -47,7 +47,7 @@
     settingsButton = document.createElement("button");
     settingsButton.className = "footer_link webpeak-consent-footer-link";
     settingsButton.type = "button";
-    settingsButton.textContent = "Datenschutzeinstellungen";
+    settingsButton.textContent = "Cookie-Einstellungen";
 
     banner.addEventListener("click", function (event) {
       var button = event.target.closest("[data-consent]");
