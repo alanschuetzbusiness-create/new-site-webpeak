@@ -123,5 +123,122 @@
   var description = swissItem && swissItem.querySelector("p");
   if (!description) return;
 
-  description.textContent = "Keine KI-Webseiten oder billiges Outsourcing. Von A bis Z in der Schweiz umgesetzt.";
+  description.textContent = "Keine KI-Websites und kein billiges Outsourcing. Ihr Design wird von A bis Z in der Schweiz erstellt.";
+})();
+
+(function () {
+  var component = document.querySelector(".webpeak-lead-stack-component");
+  if (!component) return;
+
+  var cards = Array.prototype.slice.call(component.querySelectorAll(".stack_card"));
+  var mobileQuery = window.matchMedia("(max-width: 767px)");
+  var resizeFrame = 0;
+  if (!cards.length) return;
+
+  function syncMobileCardStops() {
+    window.cancelAnimationFrame(resizeFrame);
+    resizeFrame = window.requestAnimationFrame(function () {
+      if (!mobileQuery.matches) {
+        cards.forEach(function (card) {
+          card.style.removeProperty("top");
+        });
+        return;
+      }
+
+      var rootSize = Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+      var nextTop = 7 * rootSize;
+
+      cards.forEach(function (card) {
+        card.style.top = Math.round(nextTop) + "px";
+
+        var heading = card.querySelector(".webpeak-stack-heading");
+        if (!heading) return;
+
+        var cardRect = card.getBoundingClientRect();
+        var headingRect = heading.getBoundingClientRect();
+        var headingBottom = headingRect.bottom - cardRect.top;
+
+        nextTop = Math.ceil(nextTop + headingBottom + 2);
+      });
+    });
+  }
+
+  syncMobileCardStops();
+  window.addEventListener("load", syncMobileCardStops);
+  window.addEventListener("resize", syncMobileCardStops);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncMobileCardStops);
+  }
+
+  if (mobileQuery.addEventListener) {
+    mobileQuery.addEventListener("change", syncMobileCardStops);
+  } else if (mobileQuery.addListener) {
+    mobileQuery.addListener(syncMobileCardStops);
+  }
+})();
+
+(function () {
+  var component = document.querySelector(".webpeak-lead-stack-component");
+  if (!component) return;
+
+  var header = component.querySelector(".webpeak-stack-section-header");
+  var lastCard = component.querySelector(".stack_card.is-4");
+  var desktopQuery = window.matchMedia("(min-width: 992px)");
+  if (!header || !lastCard) return;
+
+  var startScroll = 0;
+  var ticking = false;
+
+  function getStaticDocumentTop(element) {
+    var top = 0;
+    var node = element;
+
+    while (node) {
+      top += node.offsetTop || 0;
+      node = node.offsetParent;
+    }
+
+    return top;
+  }
+
+  function measure() {
+    var stickyTop = parseFloat(window.getComputedStyle(lastCard).top) || 0;
+    var stackGap = parseFloat(window.getComputedStyle(component).rowGap) || 0;
+    startScroll = getStaticDocumentTop(lastCard) - stickyTop + stackGap;
+  }
+
+  function update() {
+    if (!desktopQuery.matches) {
+      header.style.removeProperty("transform");
+      ticking = false;
+      return;
+    }
+
+    var distance = Math.max(0, window.scrollY - startScroll);
+    header.style.transform = "translate3d(0, " + (-distance).toFixed(2) + "px, 0)";
+    ticking = false;
+  }
+
+  function requestUpdate() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }
+
+  function refresh() {
+    measure();
+    requestUpdate();
+  }
+
+  refresh();
+  window.addEventListener("load", refresh);
+  window.addEventListener("resize", refresh);
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+
+  if (desktopQuery.addEventListener) {
+    desktopQuery.addEventListener("change", refresh);
+  } else if (desktopQuery.addListener) {
+    desktopQuery.addListener(refresh);
+  }
 })();

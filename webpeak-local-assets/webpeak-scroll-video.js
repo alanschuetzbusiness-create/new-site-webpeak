@@ -324,7 +324,7 @@
     var rect = banner.getBoundingClientRect();
     var travel = window.innerHeight + rect.height;
     var progress = clamp((window.innerHeight - rect.top) / Math.max(1, travel), 0, 1);
-    var distance = banner.offsetWidth * .18;
+    var distance = banner.offsetWidth * .4;
     var x = progress * -distance;
 
     marquees.forEach(function (marquee) {

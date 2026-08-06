@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Keep the public Google Ads URLs clean and extension-free.
+RewriteCond %{THE_REQUEST} \s/+google-ads-lead-funnel\.html[\s?] [NC]
+RewriteRule ^google-ads-lead-funnel\.html$ /erstedesign [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+danke-entwurf\.html[\s?] [NC]
+RewriteRule ^danke-entwurf\.html$ /erstedesign/danke [R=301,L]
+
+RewriteRule ^erstedesign/?$ google-ads-lead-funnel.html [L]
+RewriteRule ^erstedesign/danke/?$ danke-entwurf.html [L]
+
+<IfModule mod_headers.c>
+  SetEnvIf Request_URI "^/erstedesign(?:/danke)?/?$" WEBPEAK_FUNNEL_NOINDEX
+  Header set X-Robots-Tag "noindex" env=WEBPEAK_FUNNEL_NOINDEX
+</IfModule>
