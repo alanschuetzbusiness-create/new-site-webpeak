@@ -4,11 +4,9 @@
 
   sections.forEach(function (section) {
     var track = section.querySelector(".reference-scroll_track");
-    if (track && !track.querySelector('[href="https://lmcollection.com/"]')) {
-      var liquidMetalCard = document.createElement("a");
-      liquidMetalCard.href = "https://lmcollection.com/";
-      liquidMetalCard.target = "_blank";
-      liquidMetalCard.rel = "noopener";
+    if (track && !track.querySelector('[data-reference="liquid-metal"]')) {
+      var liquidMetalCard = document.createElement("article");
+      liquidMetalCard.dataset.reference = "liquid-metal";
       liquidMetalCard.className = "reference-scroll_card is-hidden-right";
       liquidMetalCard.innerHTML = [
         '<img src="./webpeak-local-assets/041a00c4af-6935ef1518820fc925c2d302_mountains--with-sky.avif" loading="lazy" alt="Berglandschaft mit Himmel" class="reference-scroll_image">',
@@ -16,20 +14,32 @@
         '<div class="reference-scroll_overlay"></div>',
         '<div class="reference-scroll_content">',
           '<div class="reference-scroll_badge"><img src="./webpeak-local-assets/reference-sg-liquid-metal-logo.png" loading="lazy" alt="Logo von SG Liquid Metal Collection" class="reference-scroll_badge-logo"></div>',
-          '<div>',
+          '<div class="reference-scroll_copy">',
             '<div class="reference-scroll_title">SG Liquid Metal Collection</div>',
             '<div class="reference-scroll_text">Ikonische und international renommierte Schmuckmarke aus Miami.</div>',
-            '<div class="reference-scroll_link">lmcollection.com</div>',
           '</div>',
         '</div>'
       ].join("");
-      var gwServicesCard = track.querySelector('[href="https://gwservices.ch/"]');
+      var gwServicesCard = Array.prototype.find.call(track.querySelectorAll(".reference-scroll_card"), function (card) {
+        return card.textContent.indexOf("GWServices") !== -1;
+      });
       if (gwServicesCard) {
         gwServicesCard.insertAdjacentElement("afterend", liquidMetalCard);
       } else {
         track.appendChild(liquidMetalCard);
       }
     }
+    Array.prototype.slice.call(section.querySelectorAll("a.reference-scroll_card")).forEach(function (linkCard) {
+      var staticCard = document.createElement("article");
+      Array.prototype.slice.call(linkCard.attributes).forEach(function (attribute) {
+        if (attribute.name !== "href" && attribute.name !== "target" && attribute.name !== "rel") {
+          staticCard.setAttribute(attribute.name, attribute.value);
+        }
+      });
+      staticCard.innerHTML = linkCard.innerHTML;
+      linkCard.replaceWith(staticCard);
+    });
+
     var cards = Array.prototype.slice.call(section.querySelectorAll(".reference-scroll_card"));
     var previous = section.querySelector("[data-reference-prev]");
     var next = section.querySelector("[data-reference-next]");
@@ -38,7 +48,7 @@
     var touchMoved = false;
     var lastSwipeAt = 0;
     var defaultIndex = cards.findIndex(function (card) {
-      return card.href === "https://lmcollection.com/";
+      return card.dataset.reference === "liquid-metal";
     });
     var activeIndex = defaultIndex >= 0 ? defaultIndex : Math.max(0, cards.findIndex(function (card) {
       return card.classList.contains("is-active");
@@ -47,7 +57,8 @@
     function focusCard(index) {
       activeIndex = (index + cards.length) % cards.length;
       cards.forEach(function (card, cardIndex) {
-        var diff = cardIndex - activeIndex;
+        var diff = (cardIndex - activeIndex + cards.length) % cards.length;
+        if (diff > Math.floor(cards.length / 2)) diff -= cards.length;
         var active = cardIndex === activeIndex;
         card.classList.remove("is-active", "is-prev", "is-next", "is-far-prev", "is-far-next", "is-hidden-left", "is-hidden-right");
         if (active) card.classList.add("is-active");
@@ -67,13 +78,8 @@
           event.preventDefault();
           return;
         }
-        if (card.classList.contains("is-active")) {
-          event.preventDefault();
-          window.open(card.href, "_blank", "noopener");
-          return;
-        }
         event.preventDefault();
-        focusCard(index);
+        if (!card.classList.contains("is-active")) focusCard(index);
       });
     });
 

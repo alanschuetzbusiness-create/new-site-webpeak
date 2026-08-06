@@ -29,6 +29,8 @@
     banner.querySelector("button").focus();
   }
 
+  window.WebpeakConsentOpen = openBanner;
+
   function init() {
     banner = document.createElement("section");
     banner.className = "webpeak-consent";
@@ -38,7 +40,7 @@
     banner.setAttribute("aria-hidden", "true");
     banner.innerHTML =
       '<h2 id="webpeak-consent-title">Ein kleiner Hinweis zum Datenschutz</h2>' +
-      '<p>Wir verwenden Cookies, damit unsere Webseite zuverlässig funktioniert und um zu verstehen, wie sie genutzt wird. Persönliche Angaben wie Ihr Name, Ihre Telefonnummer oder Ihre Angaben im Kontaktformular werden dabei nicht erfasst. <a href="datenschutz.html">Mehr zum Datenschutz</a>.</p>' +
+      '<p>Wir verwenden Cookies, damit unsere Website zuverlässig funktioniert und um zu verstehen, wie sie genutzt wird. Persönliche Angaben wie Ihr Name, Ihre Telefonnummer oder Ihre Angaben im Kontaktformular werden dabei nicht erfasst. <a href="datenschutz.html">Mehr zum Datenschutz</a>.</p>' +
       '<div class="webpeak-consent__actions">' +
         '<button class="webpeak-consent__button webpeak-consent__button--accept" type="button" data-consent="accepted">Optionale Cookies erlauben</button>' +
         '<button class="webpeak-consent__button webpeak-consent__button--reject" type="button" data-consent="rejected">Ohne optionale Cookies fortfahren</button>' +

@@ -1,0 +1,46 @@
+body .webpeak-lead-form {
+  column-gap: .96rem;
+}
+
+body .webpeak-lead-form label {
+  margin-bottom: .984rem;
+  font-size: 1.2rem;
+}
+
+body .webpeak-lead-form label span {
+  margin-bottom: .4rem;
+}
+
+body .webpeak-lead-form input,
+body .webpeak-lead-form textarea,
+body .webpeak-lead-form select {
+  min-height: 3.55rem;
+  font-size: 1.05rem;
+}
+
+body .webpeak-lead-form .webpeak-lead-submit {
+  min-height: 3.55rem;
+  font-size: 1.05rem;
+}
+
+body .webpeak-lead-grid {
+  gap: .96rem;
+}
+
+@media screen and (min-width: 992px) {
+  .webpeak-lead-stack-component .stack_card {
+    top: 17.25rem;
+  }
+
+  .webpeak-lead-stack-component .stack_card.is-2 {
+    top: 24.25rem;
+  }
+
+  .webpeak-lead-stack-component .stack_card.is-3 {
+    top: 31.25rem;
+  }
+
+  .webpeak-lead-stack-component .stack_card.is-4 {
+    top: 38.25rem;
+  }
+}
