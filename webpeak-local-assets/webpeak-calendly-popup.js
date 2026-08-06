@@ -39,6 +39,7 @@
     if (!button) return;
 
     event.preventDefault();
+    event.stopImmediatePropagation();
 
     loadCalendly()
       .then(function () {
@@ -47,5 +48,5 @@
       .catch(function () {
         window.open(calendlyUrl, "_blank", "noopener,noreferrer");
       });
-  });
+  }, true);
 })();
