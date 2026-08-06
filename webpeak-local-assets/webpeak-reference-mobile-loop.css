@@ -1,0 +1,17 @@
+@media screen and (max-width: 767px) {
+  .reference-scroll_card.is-prev {
+    transform: translate3d(calc(-50% - (var(--reference-active-width) / 2) + .85rem), 0, 0);
+  }
+
+  .reference-scroll_card.is-next {
+    transform: translate3d(calc(-50% + (var(--reference-active-width) / 2) - .85rem), 0, 0);
+  }
+
+  .reference-scroll_card.is-far-prev {
+    transform: translate3d(calc(-50% - (var(--reference-active-width) / 2) - 1.75rem), 0, 0);
+  }
+
+  .reference-scroll_card.is-far-next {
+    transform: translate3d(calc(-50% + (var(--reference-active-width) / 2) + 1.75rem), 0, 0);
+  }
+}
