@@ -1,0 +1,9 @@
+@media screen and (max-width: 767px) {
+  .sun {
+    width: min(110vw, 28rem);
+    height: 18rem;
+    bottom: -8rem;
+    filter: blur(38px);
+    opacity: .92;
+  }
+}
