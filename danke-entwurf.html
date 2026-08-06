@@ -1,91 +1,118 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" class="w-mod-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
+  <meta name="robots" content="noindex, nofollow">
   <title>Vielen Dank für Ihre Anfrage | Webpeak</title>
-  <link rel="icon" href="/webpeak-local-assets/webpeak-favicon.png" type="image/png">
+  <link href="./webpeak-local-assets/webpeak-main.css?v=demo-contact-padding-1" rel="stylesheet" type="text/css">
+  <link href="./webpeak-local-assets/webpeak-funnel-form.css?v=54" rel="stylesheet" type="text/css">
+  <link href="./webpeak-local-assets/webpeak-favicon.png" rel="shortcut icon" type="image/png">
   <style>
-    @font-face {
-      font-family: "Space Grotesk";
-      src: url("/webpeak-local-assets/7a4170bef1-697f8324cf1ddb096d556fcb_Space-Grotesk-Variable-Font.woff2") format("woff2");
-      font-display: swap;
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
     }
-
-    * { box-sizing: border-box; }
 
     body {
+      overflow-x: hidden;
+      background: var(--neutral-colors--gray-100, #f4f4f4);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .webpeak-thank-section {
       min-height: 100vh;
-      margin: 0;
-      padding: 1.5rem;
       display: grid;
-      place-items: center;
-      color: #1a1c1c;
-      background: #eef4f7;
-      font-family: "Space Grotesk", Arial, sans-serif;
+      align-items: center;
     }
 
-    main {
-      position: relative;
-      width: min(100%, 58rem);
-      padding: clamp(2rem, 7vw, 5rem);
-      overflow: hidden;
-      border-radius: clamp(2rem, 6vw, 4rem);
-      background: #fff;
+    .webpeak-thank-section .padding-section-xxlarge {
+      width: 100%;
     }
 
-    main::after {
-      content: "";
-      position: absolute;
-      right: -8rem;
-      bottom: -11rem;
-      width: 28rem;
-      height: 28rem;
-      border-radius: 50%;
-      background: #cfe3ee;
-      opacity: .65;
+    .webpeak-thank-contact {
+      width: min(100%, 62rem);
+      margin: clamp(1.5rem, 3vw, 2.15rem) auto 0;
+      padding-top: clamp(1.5rem, 3vw, 2.15rem);
+      border-top: 1px solid var(--borders--borders, #cfe4f1);
+      text-align: center;
     }
 
-    img { width: 10rem; height: auto; }
-
-    .tag {
-      display: inline-block;
-      margin-top: 3rem;
-      padding: .35rem .9rem;
-      border: 1px solid currentColor;
-      border-radius: 999px;
-      font-size: .75rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      position: relative;
-      z-index: 1;
-      max-width: 13ch;
-      margin: 1.25rem 0;
-      font-size: clamp(2.6rem, 8vw, 5.5rem);
-      line-height: .98;
-      letter-spacing: -.045em;
-    }
-
-    p {
-      position: relative;
-      z-index: 1;
-      max-width: 34rem;
+    .webpeak-thank-contact p {
       margin: 0;
-      font-size: clamp(1.05rem, 2vw, 1.3rem);
-      line-height: 1.5;
+    }
+
+    .webpeak-thank-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      margin-top: 1rem;
+      color: var(--neutral-colors--black, #1a1c1c);
+      font-size: var(--text-size--large, 1.25rem);
+      font-weight: 600;
+      line-height: 1.2;
+      text-decoration: none;
+    }
+
+    .webpeak-thank-phone img {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    @media screen and (max-width: 767px) {
+      .webpeak-thank-contact {
+        text-align: left;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
-    <img src="/webpeak-local-assets/webpeak-logo.png" alt="Webpeak">
-    <div class="tag">Anfrage erhalten</div>
-    <h1>Vielen Dank für Ihre Anfrage.</h1>
-    <p>Wir prüfen Ihre Angaben und melden uns persönlich bei Ihnen, um die nächsten Schritte zu besprechen.</p>
-  </main>
+  <div class="page-wrapper">
+    <div class="navbar_component is-scroll-minimized ads-funnel-logo-pill w-nav" role="banner">
+      <div class="navbar_container">
+        <div class="navbar_logo-link w-nav-brand" aria-label="Webpeak">
+          <img width="150" height="30" alt="Webpeak Logo" src="./webpeak-local-assets/webpeak-logo.png" loading="eager" class="navbar_logo">
+        </div>
+      </div>
+    </div>
+
+    <main class="main-wrapper">
+      <section class="section webpeak-lead-section webpeak-thank-section">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-xxlarge">
+              <div class="cta_component webpeak-lead-cta">
+                <div class="webpeak-lead-layout">
+                  <div class="webpeak-lead-copy">
+                    <div class="margin-bottom margin-small">
+                      <div class="tag">Anfrage erhalten</div>
+                    </div>
+                    <div class="margin-bottom margin-small">
+                      <h1 class="heading-style-h1">Vielen Dank für Ihre Anfrage.</h1>
+                    </div>
+                    <p class="text-size-large text-color-black-transaprent">Wir prüfen gerne Ihre Angaben und melden uns persönlich bei Ihnen, um kurz die nächsten Schritte zu besprechen.</p>
+
+                    <div class="webpeak-thank-contact">
+                      <p class="text-size-medium text-color-black-transaprent">Gerne können Sie uns auch direkt telefonisch erreichen.</p>
+                      <a class="webpeak-thank-phone" href="tel:+41815602154">
+                        <img src="./webpeak-local-assets/phone-call.svg" alt="" aria-hidden="true">
+                        <span>081 560 21 54</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <img src="./webpeak-local-assets/f60acb72bb-694c5b59766f77ae28ecf909_Webpeak-Snowflake-Cropped.svg" loading="eager" aria-hidden="true" alt="" class="cta_snowflake-1">
+                <img src="./webpeak-local-assets/7ef8bc6f9e-694c5b9cb75e2dfdec53dc64_Webpeak-Snowflake-Cropped-1-.svg" loading="eager" aria-hidden="true" alt="" class="cta_snowflake-2">
+                <img src="./webpeak-local-assets/816fee9978-68dda8992e15618fc061a57a_noise.png" loading="eager" aria-hidden="true" alt="" class="noise">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
