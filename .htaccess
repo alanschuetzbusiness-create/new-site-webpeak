@@ -10,6 +10,9 @@ RewriteRule ^danke-entwurf\.html$ /erstedesign/danke [R=301,L]
 RewriteRule ^erstedesign/?$ google-ads-lead-funnel.html [L]
 RewriteRule ^erstedesign/danke/?$ danke-entwurf.html [L]
 
+# Relative assets keep the local file preview and the clean nested URLs identical.
+RewriteRule ^erstedesign/webpeak-local-assets/(.*)$ webpeak-local-assets/$1 [L]
+
 <IfModule mod_headers.c>
   SetEnvIf Request_URI "^/erstedesign(?:/danke)?/?$" WEBPEAK_FUNNEL_NOINDEX
   Header set X-Robots-Tag "noindex" env=WEBPEAK_FUNNEL_NOINDEX
