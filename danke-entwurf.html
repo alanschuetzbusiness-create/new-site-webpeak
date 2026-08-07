@@ -17,6 +17,13 @@
       wait_for_update: 500
     });
   </script>
+  <!-- Google Ads tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18375276150"></script>
+  <script>
+    gtag("js", new Date());
+    gtag("config", "AW-18375276150");
+  </script>
+  <!-- End Google Ads tag -->
   <script>
     (function () {
       var pending = null;
@@ -26,6 +33,12 @@
       } catch (error) {}
 
       if (pending && pending.id) {
+        gtag("event", "conversion", {
+          send_to: "AW-18375276150/nePrCI_hmt0cEPbsgbpE",
+          value: 1.0,
+          currency: "CHF"
+        });
+
         window.dataLayer.push({
           event: "webpeak_generate_lead",
           lead_id: pending.id,
