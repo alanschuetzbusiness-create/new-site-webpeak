@@ -3,6 +3,58 @@
   var modal = null;
   var modalForm = null;
   var lastActiveElement = null;
+  var attributionKeys = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+    "gclid",
+    "gbraid",
+    "wbraid"
+  ];
+
+  function getAttribution() {
+    var params = new URLSearchParams(window.location.search);
+    var attribution = {};
+
+    attributionKeys.forEach(function (key) {
+      var value = params.get(key);
+      if (value) attribution[key] = value;
+    });
+
+    return attribution;
+  }
+
+  function applyAttribution(form) {
+    var attribution = getAttribution();
+
+    Object.keys(attribution).forEach(function (key) {
+      var field = form.querySelector('input[name="' + key + '"]');
+      if (field) field.value = attribution[key];
+    });
+  }
+
+  function markPendingLead(form) {
+    var leadId = "lead-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+    var payload = {
+      id: leadId,
+      source: "google_ads_lead_funnel",
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      window.sessionStorage.setItem("webpeak_lead_submission_pending", JSON.stringify(payload));
+    } catch (error) {}
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "webpeak_lead_form_submit",
+      lead_id: leadId,
+      form_name: form.getAttribute("aria-label") || "Kostenlosen Website-Entwurf anfragen",
+      form_location: form.classList.contains("is-modal-form") ? "modal" : "page"
+    });
+  }
 
   function initLeadForm(form) {
     if (!form || initializedForms.has(form)) return;
@@ -17,6 +69,7 @@
 
     initializedForms.add(form);
     form.setAttribute("novalidate", "novalidate");
+    applyAttribution(form);
 
     function fieldIsValid(field) {
       if (field.type === "checkbox" || field.type === "radio") {
@@ -77,7 +130,10 @@
 
       if (!validateForm()) {
         event.preventDefault();
+        return;
       }
+
+      markPendingLead(form);
     });
   }
 

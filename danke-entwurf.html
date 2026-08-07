@@ -1,12 +1,63 @@
 <!doctype html>
 <html lang="de" class="w-mod-js">
 <head>
+  <!-- Google Consent Mode defaults -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    var webpeakConsent = "denied";
+    try {
+      if (localStorage.getItem("webpeak_consent_v1") === "accepted") webpeakConsent = "granted";
+    } catch (error) {}
+    gtag("consent", "default", {
+      analytics_storage: webpeakConsent,
+      ad_storage: webpeakConsent,
+      ad_user_data: webpeakConsent,
+      ad_personalization: webpeakConsent,
+      wait_for_update: 500
+    });
+  </script>
+  <script>
+    (function () {
+      var pending = null;
+      try {
+        pending = JSON.parse(window.sessionStorage.getItem("webpeak_lead_submission_pending"));
+        window.sessionStorage.removeItem("webpeak_lead_submission_pending");
+      } catch (error) {}
+
+      if (pending && pending.id) {
+        window.dataLayer.push({
+          event: "webpeak_generate_lead",
+          lead_id: pending.id,
+          form_name: "Kostenlosen Website-Entwurf anfragen",
+          lead_source: pending.source || "google_ads_lead_funnel",
+          value: 1,
+          currency: "CHF"
+        });
+      }
+    })();
+  </script>
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0];
+      var j = d.createElement(s);
+      var dl = l !== "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-N55B2HZQ");
+  </script>
+  <!-- End Google Tag Manager -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Vielen Dank für Ihre Anfrage | Webpeak</title>
   <link href="./webpeak-local-assets/webpeak-main.css?v=demo-contact-padding-1" rel="stylesheet" type="text/css">
   <link href="./webpeak-local-assets/webpeak-funnel-form.css?v=54" rel="stylesheet" type="text/css">
+  <link href="./webpeak-local-assets/webpeak-consent.css?v=2" rel="stylesheet" type="text/css">
   <link href="./webpeak-local-assets/webpeak-favicon.png" rel="shortcut icon" type="image/png">
   <style>
     html,
@@ -69,6 +120,9 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N55B2HZQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <div class="page-wrapper">
     <div class="navbar_component is-scroll-minimized ads-funnel-logo-pill w-nav" role="banner">
       <div class="navbar_container">
@@ -114,5 +168,6 @@
       </section>
     </main>
   </div>
+  <script src="./webpeak-local-assets/webpeak-consent.js?v=6" type="text/javascript"></script>
 </body>
 </html>

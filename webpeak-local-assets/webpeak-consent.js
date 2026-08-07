@@ -9,9 +9,9 @@
     var granted = choice === "accepted" ? "granted" : "denied";
     window.gtag("consent", "update", {
       analytics_storage: granted,
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied"
+      ad_storage: granted,
+      ad_user_data: granted,
+      ad_personalization: granted
     });
     window.dataLayer.push({ event: "webpeak_consent_update", consent_choice: choice });
   }
@@ -40,7 +40,7 @@
     banner.setAttribute("aria-hidden", "true");
     banner.innerHTML =
       '<h2 id="webpeak-consent-title">Ein kleiner Hinweis zum Datenschutz</h2>' +
-      '<p>Wir verwenden Cookies, damit unsere Website zuverlässig funktioniert und um zu verstehen, wie sie genutzt wird. Persönliche Angaben wie Ihr Name, Ihre Telefonnummer oder Ihre Angaben im Kontaktformular werden dabei nicht erfasst. <a href="datenschutz.html">Mehr zum Datenschutz</a>.</p>' +
+      '<p>Mit Ihrer Zustimmung verwenden wir optionale Cookies, um die Nutzung der Website und den Erfolg unserer Werbekampagnen zu messen. Formulareingaben wie Name, E-Mail-Adresse oder Telefonnummer werden dabei nicht an Analytics oder Google Ads übermittelt. <a href="datenschutz.html">Mehr zum Datenschutz</a>.</p>' +
       '<div class="webpeak-consent__actions">' +
         '<button class="webpeak-consent__button webpeak-consent__button--accept" type="button" data-consent="accepted">Optionale Cookies erlauben</button>' +
         '<button class="webpeak-consent__button webpeak-consent__button--reject" type="button" data-consent="rejected">Ohne optionale Cookies fortfahren</button>' +
