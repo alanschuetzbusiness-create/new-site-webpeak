@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!title || !description) return;
 
     if (title.textContent.trim() === "Kostenlos") {
-      title.textContent = "Neukunden optimiert";
+      title.textContent = "Neukundenoptimiert";
       description.textContent =
         "Ihre Website wird für Suchmaschinen (SEO) optimiert und führt Besucher gezielt zur Anfrage.";
     }
