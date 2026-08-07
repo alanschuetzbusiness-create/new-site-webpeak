@@ -65,8 +65,8 @@
     var sourceUrl = document.querySelector('.webpeak-lead-form input[name="_url"]');
     var thankYouUrl = document.querySelector('.webpeak-lead-form input[name="_next"]');
 
-    if (sourceUrl) sourceUrl.value = "https://webpeak.ch/erstedesign";
-    if (thankYouUrl) thankYouUrl.value = "https://webpeak.ch/erstedesign/danke";
+    if (sourceUrl) sourceUrl.value = "https://webpeak.ch/design";
+    if (thankYouUrl) thankYouUrl.value = "https://webpeak.ch/design/danke";
   }
 
   function moveSections() {

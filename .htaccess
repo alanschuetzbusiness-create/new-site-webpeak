@@ -2,18 +2,22 @@ RewriteEngine On
 
 # Keep the public Google Ads URLs clean and extension-free.
 RewriteCond %{THE_REQUEST} \s/+google-ads-lead-funnel\.html[\s?] [NC]
-RewriteRule ^google-ads-lead-funnel\.html$ /erstedesign [R=301,L]
+RewriteRule ^google-ads-lead-funnel\.html$ /design [R=301,L]
 
 RewriteCond %{THE_REQUEST} \s/+danke-entwurf\.html[\s?] [NC]
-RewriteRule ^danke-entwurf\.html$ /erstedesign/danke [R=301,L]
+RewriteRule ^danke-entwurf\.html$ /design/danke [R=301,L]
 
-RewriteRule ^erstedesign/?$ google-ads-lead-funnel.html [L]
-RewriteRule ^erstedesign/danke/?$ danke-entwurf.html [L]
+# Redirect the previous campaign URLs so old links and bookmarks keep working.
+RewriteRule ^erstedesign/?$ /design [R=301,L]
+RewriteRule ^erstedesign/danke/?$ /design/danke [R=301,L]
+
+RewriteRule ^design/?$ google-ads-lead-funnel.html [L]
+RewriteRule ^design/danke/?$ danke-entwurf.html [L]
 
 # Relative assets keep the local file preview and the clean nested URLs identical.
-RewriteRule ^erstedesign/webpeak-local-assets/(.*)$ webpeak-local-assets/$1 [L]
+RewriteRule ^design/webpeak-local-assets/(.*)$ webpeak-local-assets/$1 [L]
 
 <IfModule mod_headers.c>
-  SetEnvIf Request_URI "^/erstedesign(?:/danke)?/?$" WEBPEAK_FUNNEL_NOINDEX
+  SetEnvIf Request_URI "^/design(?:/danke)?/?$" WEBPEAK_FUNNEL_NOINDEX
   Header set X-Robots-Tag "noindex" env=WEBPEAK_FUNNEL_NOINDEX
 </IfModule>
