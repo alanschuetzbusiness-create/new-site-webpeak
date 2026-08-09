@@ -1,4 +1,16 @@
 @media screen and (max-width: 767px) {
+  /* Keep the project mockup immediately visible when a swiped card becomes active. */
+  .reference-scroll_card .reference-scroll_project-image {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  .reference-scroll_card.is-active .reference-scroll_project-image {
+    opacity: 1 !important;
+    transform: translate3d(-50%, -50%, 0) scale(1) !important;
+  }
+
   .reference-scroll_card.is-prev {
     transform: translate3d(calc(-50% - (var(--reference-active-width) / 2) + .85rem), 0, 0);
   }

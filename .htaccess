@@ -13,6 +13,7 @@ RewriteRule ^erstedesign/danke/?$ /design/danke [R=301,L]
 
 RewriteRule ^design/?$ google-ads-lead-funnel.html [L]
 RewriteRule ^design/danke/?$ danke-entwurf.html [L]
+RewriteRule ^danke/?$ danke.html [L]
 
 # Relative assets keep the local file preview and the clean nested URLs identical.
 RewriteRule ^design/webpeak-local-assets/(.*)$ webpeak-local-assets/$1 [L]
