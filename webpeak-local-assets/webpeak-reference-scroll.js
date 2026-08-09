@@ -10,13 +10,14 @@
       liquidMetalCard.className = "reference-scroll_card is-hidden-right";
       liquidMetalCard.innerHTML = [
         '<img src="./webpeak-local-assets/041a00c4af-6935ef1518820fc925c2d302_mountains--with-sky.avif" loading="lazy" alt="Berglandschaft mit Himmel" class="reference-scroll_image">',
-        '<img src="./webpeak-local-assets/reference-sg-liquid-metal.png" loading="lazy" alt="Website Referenz von SG Liquid Metal Collection" class="reference-scroll_project-image">',
+        '<img src="./webpeak-local-assets/reference-sg-liquid-metal.png" loading="eager" decoding="async" alt="Website Referenz von SG Liquid Metal Collection" class="reference-scroll_project-image">',
         '<div class="reference-scroll_overlay"></div>',
         '<div class="reference-scroll_content">',
           '<div class="reference-scroll_badge"><img src="./webpeak-local-assets/reference-sg-liquid-metal-logo.png" loading="lazy" alt="Logo von SG Liquid Metal Collection" class="reference-scroll_badge-logo"></div>',
           '<div class="reference-scroll_copy">',
             '<div class="reference-scroll_title">SG Liquid Metal Collection</div>',
             '<div class="reference-scroll_text">Ikonische und international renommierte Schmuckmarke aus Miami.</div>',
+            '<div class="reference-scroll_link">sgliquidmetal.com</div>',
           '</div>',
         '</div>'
       ].join("");
@@ -41,6 +42,12 @@
     });
 
     var cards = Array.prototype.slice.call(section.querySelectorAll(".reference-scroll_card"));
+    cards.forEach(function (card) {
+      var projectImage = card.querySelector(".reference-scroll_project-image");
+      if (!projectImage) return;
+      projectImage.loading = "eager";
+      projectImage.decoding = "async";
+    });
     var previous = section.querySelector("[data-reference-prev]");
     var next = section.querySelector("[data-reference-next]");
     var touchStartX = 0;

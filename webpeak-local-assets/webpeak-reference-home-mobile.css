@@ -1,0 +1,9 @@
+@media screen and (max-width: 767px) {
+  .reference-scroll_card[data-reference="liquid-metal"] .reference-scroll_content {
+    bottom: 1.15rem;
+  }
+
+  .reference-scroll_card[data-reference="liquid-metal"] .reference-scroll_copy {
+    min-width: 0;
+  }
+}
