@@ -26,4 +26,10 @@
   .reference-scroll_card.is-far-next {
     transform: translate3d(calc(-50% + (var(--reference-active-width) / 2) + 1.75rem), 0, 0);
   }
+
+  /* Reposition only the rear card invisibly when it crosses the loop seam. */
+  .reference-scroll_card.is-loop-teleport {
+    opacity: 0 !important;
+    transition: none !important;
+  }
 }
