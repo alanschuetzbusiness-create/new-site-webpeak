@@ -54,8 +54,23 @@
       return card.classList.contains("is-active");
     }));
 
+    function normalizeIndex(index) {
+      return ((index % cards.length) + cards.length) % cards.length;
+    }
+
+    if (track) {
+      track.setAttribute("data-reference-loop", "true");
+      track.setAttribute("aria-roledescription", "Endlosschleife");
+    }
+
+    [previous, next].forEach(function (control) {
+      if (!control) return;
+      control.disabled = false;
+      control.removeAttribute("aria-disabled");
+    });
+
     function focusCard(index) {
-      activeIndex = (index + cards.length) % cards.length;
+      activeIndex = normalizeIndex(index);
       cards.forEach(function (card, cardIndex) {
         var diff = (cardIndex - activeIndex + cards.length) % cards.length;
         if (diff > Math.floor(cards.length / 2)) diff -= cards.length;
