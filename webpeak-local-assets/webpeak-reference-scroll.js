@@ -7,6 +7,7 @@
     if (track && !track.querySelector('[data-reference="liquid-metal"]')) {
       var liquidMetalCard = document.createElement("article");
       liquidMetalCard.dataset.reference = "liquid-metal";
+      liquidMetalCard.dataset.referenceUrl = "https://www.sgliquidmetal.com/";
       liquidMetalCard.className = "reference-scroll_card is-hidden-right";
       liquidMetalCard.innerHTML = [
         '<img src="./webpeak-local-assets/041a00c4af-6935ef1518820fc925c2d302_mountains--with-sky.avif" loading="lazy" alt="Berglandschaft mit Himmel" class="reference-scroll_image">',
@@ -17,7 +18,7 @@
           '<div class="reference-scroll_copy">',
             '<div class="reference-scroll_title">SG Liquid Metal Collection</div>',
             '<div class="reference-scroll_text">Ikonische und international renommierte Schmuckmarke aus Miami.</div>',
-            '<div class="reference-scroll_link">sgliquidmetal.com</div>',
+            '<a class="reference-scroll_link" href="https://www.sgliquidmetal.com/" target="_blank" rel="noopener noreferrer">sgliquidmetal.com</a>',
           '</div>',
         '</div>'
       ].join("");
@@ -32,6 +33,7 @@
     }
     Array.prototype.slice.call(section.querySelectorAll("a.reference-scroll_card")).forEach(function (linkCard) {
       var staticCard = document.createElement("article");
+      staticCard.dataset.referenceUrl = linkCard.href;
       Array.prototype.slice.call(linkCard.attributes).forEach(function (attribute) {
         if (attribute.name !== "href" && attribute.name !== "target" && attribute.name !== "rel") {
           staticCard.setAttribute(attribute.name, attribute.value);
@@ -39,6 +41,20 @@
       });
       staticCard.innerHTML = linkCard.innerHTML;
       linkCard.replaceWith(staticCard);
+    });
+
+    Array.prototype.slice.call(section.querySelectorAll(".reference-scroll_card")).forEach(function (card) {
+      var url = card.dataset.referenceUrl;
+      var urlLabel = card.querySelector(".reference-scroll_link");
+      if (!url || !urlLabel || urlLabel.matches("a")) return;
+
+      var projectLink = document.createElement("a");
+      projectLink.className = urlLabel.className;
+      projectLink.textContent = urlLabel.textContent;
+      projectLink.href = url;
+      projectLink.target = "_blank";
+      projectLink.rel = "noopener noreferrer";
+      urlLabel.replaceWith(projectLink);
     });
 
     var cards = Array.prototype.slice.call(section.querySelectorAll(".reference-scroll_card"));
@@ -96,6 +112,10 @@
 
     cards.forEach(function (card, index) {
       card.addEventListener("click", function (event) {
+        if (event.target.closest("a.reference-scroll_link")) {
+          if (Date.now() - lastSwipeAt < 350) event.preventDefault();
+          return;
+        }
         if (Date.now() - lastSwipeAt < 350) {
           event.preventDefault();
           return;
