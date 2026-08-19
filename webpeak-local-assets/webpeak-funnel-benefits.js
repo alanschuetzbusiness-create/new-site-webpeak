@@ -34,10 +34,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  document.querySelectorAll(".webpeak-lead-form label > span").forEach(function (label) {
-    if (label.textContent.trim() === "Für welches Unternehmen oder Projekt brauchen Sie Ihre Website?") {
-      label.textContent = "Für welches Unternehmen oder Projekt brauchen Sie eine Website?";
-    }
+  var leadFormLabels = {
+    "Projekt / Unternehmen": "Für welches Unternehmen oder Projekt?",
+    "Bestehende Website": "Haben Sie bereits eine Website?",
+    Name: "Name",
+    email: "E Mail Adresse",
+    Telefonnummer: "Telefonnummer"
+  };
+
+  document.querySelectorAll(".webpeak-lead-form label").forEach(function (label) {
+    var field = label.querySelector("input[name]");
+    var caption = label.querySelector(":scope > span");
+
+    if (!field || !caption || !leadFormLabels[field.name]) return;
+    caption.textContent = leadFormLabels[field.name];
   });
 
   document.querySelectorAll("a, button, h2, p").forEach(function (element) {
