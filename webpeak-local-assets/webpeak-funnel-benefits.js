@@ -50,14 +50,21 @@ document.addEventListener("DOMContentLoaded", function () {
     caption.textContent = leadFormLabels[field.name];
   });
 
-  document.querySelectorAll("a, button, h2, p").forEach(function (element) {
+  document.querySelectorAll("a, button").forEach(function (element) {
     var text = element.textContent.trim();
 
-    if (text === "Kostenloses Design anfragen" || text === "Kostenlosen Website-Entwurf anfragen") {
-      element.textContent = "Unverbindliches Design anfragen";
+    if (
+      text === "Kostenloses Design anfragen" ||
+      text === "Kostenlosen Entwurf anfragen" ||
+      text === "Kostenlosen Website-Entwurf anfragen" ||
+      text === "Unverbindliches Design anfragen"
+    ) {
+      element.textContent = "Unverbindliche Website anfragen";
     }
+  });
 
-    if (text === "Füllen Sie kurz die Angaben aus. Wir prüfen Ihr Projekt und melden uns persönlich bei Ihnen, damit der Entwurf zu Ihrem Unternehmen passt.") {
+  document.querySelectorAll("p").forEach(function (element) {
+    if (element.textContent.trim() === "Füllen Sie kurz die Angaben aus. Wir prüfen Ihr Projekt und melden uns persönlich bei Ihnen, damit der Entwurf zu Ihrem Unternehmen passt.") {
       element.textContent = "Füllen Sie kurz die Angaben aus. Wir prüfen Ihr Projekt und melden uns kurz persönlich bei Ihnen, damit der Entwurf perfekt zu Ihrem Unternehmen passt.";
     }
   });
