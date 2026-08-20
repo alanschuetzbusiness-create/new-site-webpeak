@@ -152,6 +152,13 @@
   outline: none;
 }
 
+.webpeak-lead-form input::placeholder,
+.webpeak-lead-form textarea::placeholder {
+  color: rgba(11, 31, 58, .38);
+  font-weight: 400;
+  opacity: 1;
+}
+
 .webpeak-lead-form textarea {
   min-height: 9rem;
   resize: vertical;
@@ -499,6 +506,10 @@
 }
 
 @media screen and (min-width: 992px) {
+  .webpeak-lead-privacy {
+    transform: translateY(1rem);
+  }
+
   .webpeak-pricing-banner {
     position: relative;
     top: -2.5rem;
