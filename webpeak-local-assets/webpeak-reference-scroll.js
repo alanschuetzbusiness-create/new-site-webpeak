@@ -10,11 +10,11 @@
       liquidMetalCard.dataset.referenceUrl = "https://www.sgliquidmetal.com/";
       liquidMetalCard.className = "reference-scroll_card is-hidden-right";
       liquidMetalCard.innerHTML = [
-        '<img src="./webpeak-local-assets/041a00c4af-6935ef1518820fc925c2d302_mountains--with-sky.avif" loading="lazy" alt="Berglandschaft mit Himmel" class="reference-scroll_image">',
+        '<img src="./webpeak-local-assets/041a00c4af-6935ef1518820fc925c2d302_mountains--with-sky.avif" loading="eager" decoding="async" alt="Berglandschaft mit Himmel" class="reference-scroll_image">',
         '<img src="./webpeak-local-assets/reference-sg-liquid-metal.png" loading="eager" decoding="async" alt="Website Referenz von SG Liquid Metal Collection" class="reference-scroll_project-image">',
         '<div class="reference-scroll_overlay"></div>',
         '<div class="reference-scroll_content">',
-          '<div class="reference-scroll_badge"><img src="./webpeak-local-assets/reference-sg-liquid-metal-logo.png" loading="lazy" alt="Logo von SG Liquid Metal Collection" class="reference-scroll_badge-logo"></div>',
+          '<div class="reference-scroll_badge"><img src="./webpeak-local-assets/reference-sg-liquid-metal-logo.png" loading="eager" decoding="async" alt="Logo von SG Liquid Metal Collection" class="reference-scroll_badge-logo"></div>',
           '<div class="reference-scroll_copy">',
             '<div class="reference-scroll_title">SG Liquid Metal Collection</div>',
             '<div class="reference-scroll_text">Ikonische und international renommierte Schmuckmarke aus Miami.</div>',
@@ -29,6 +29,31 @@
         gwServicesCard.insertAdjacentElement("afterend", liquidMetalCard);
       } else {
         track.appendChild(liquidMetalCard);
+      }
+    }
+    if (track && !track.querySelector('[data-reference="omnix"]')) {
+      var omnixCard = document.createElement("article");
+      omnixCard.dataset.reference = "omnix";
+      omnixCard.dataset.referenceUrl = "https://omnix.ch/";
+      omnixCard.className = "reference-scroll_card is-hidden-right";
+      omnixCard.innerHTML = [
+        '<img src="./webpeak-local-assets/041a00c4af-6935ef1518820fc925c2d302_mountains--with-sky.avif" loading="eager" decoding="async" alt="Berglandschaft mit Himmel" class="reference-scroll_image">',
+        '<img src="./webpeak-local-assets/reference-omnix.png" loading="eager" decoding="async" alt="Website Referenz von OMNIX" class="reference-scroll_project-image">',
+        '<div class="reference-scroll_overlay"></div>',
+        '<div class="reference-scroll_content">',
+          '<div class="reference-scroll_badge"><img src="./webpeak-local-assets/logo-omnix.png" loading="eager" decoding="async" alt="Logo von OMNIX" class="reference-scroll_badge-logo"></div>',
+          '<div class="reference-scroll_copy">',
+            '<div class="reference-scroll_title">OMNIX</div>',
+            '<div class="reference-scroll_text">Manuelle Qualitätssicherung für technische Bauteile in der Schweizer Produktion.</div>',
+            '<a class="reference-scroll_link" href="https://omnix.ch/" target="_blank" rel="noopener noreferrer">omnix.ch</a>',
+          '</div>',
+        '</div>'
+      ].join("");
+      var liquidMetalReference = track.querySelector('[data-reference="liquid-metal"]');
+      if (liquidMetalReference) {
+        liquidMetalReference.insertAdjacentElement("afterend", omnixCard);
+      } else {
+        track.appendChild(omnixCard);
       }
     }
     Array.prototype.slice.call(section.querySelectorAll("a.reference-scroll_card")).forEach(function (linkCard) {
@@ -59,10 +84,10 @@
 
     var cards = Array.prototype.slice.call(section.querySelectorAll(".reference-scroll_card"));
     cards.forEach(function (card) {
-      var projectImage = card.querySelector(".reference-scroll_project-image");
-      if (!projectImage) return;
-      projectImage.loading = "eager";
-      projectImage.decoding = "async";
+      Array.prototype.forEach.call(card.querySelectorAll("img"), function (image) {
+        image.loading = "eager";
+        image.decoding = "async";
+      });
     });
     var previous = section.querySelector("[data-reference-prev]");
     var next = section.querySelector("[data-reference-next]");
@@ -71,7 +96,7 @@
     var touchMoved = false;
     var lastSwipeAt = 0;
     var defaultIndex = cards.findIndex(function (card) {
-      return card.dataset.reference === "liquid-metal";
+      return card.dataset.reference === "omnix";
     });
     var activeIndex = defaultIndex >= 0 ? defaultIndex : Math.max(0, cards.findIndex(function (card) {
       return card.classList.contains("is-active");

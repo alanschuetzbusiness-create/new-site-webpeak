@@ -4853,6 +4853,16 @@ figcaption {
   border-radius: 999rem;
 }
 
+.reference-scroll_badge.is-logo-fill {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.reference-scroll_badge.is-logo-fill .reference-scroll_badge-logo {
+  width: 100%;
+  height: 100%;
+}
+
 .reference-scroll_title {
   font-family: var(--fonts--space-grotesk);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -5102,21 +5112,26 @@ figcaption {
   }
 
   .reference-scroll_card {
-    border-radius: 2.25rem;
-    width: 4.5rem;
+    border-radius: 2rem;
+    width: .75rem;
     transition: transform .32s cubic-bezier(.22, 1, .36, 1), width .24s cubic-bezier(.22, 1, .36, 1), opacity .18s ease-out;
   }
 
   .reference-scroll_card.is-active {
-    width: 78vw;
+    width: calc(100vw - 2.5rem);
   }
 
   .reference-scroll_track {
-    --reference-active-width: 78vw;
-    --reference-slim-width: 4.5rem;
-    --reference-gap: .65rem;
+    --reference-active-width: calc(100vw - 2.5rem);
+    --reference-slim-width: .75rem;
+    --reference-gap: .4rem;
     height: 28rem;
     touch-action: pan-y;
+  }
+
+  .reference-scroll_card:not(.is-active) .reference-scroll_content {
+    opacity: 0;
+    visibility: hidden;
   }
 
   .reference-scroll_content {

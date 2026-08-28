@@ -12,19 +12,23 @@
   }
 
   .reference-scroll_card.is-prev {
-    transform: translate3d(calc(-50% - (var(--reference-active-width) / 2) + .85rem), 0, 0);
+    transform: translate3d(calc(-50% - (var(--reference-active-width) / 2) - var(--reference-gap) - (var(--reference-slim-width) / 2)), 0, 0);
   }
 
   .reference-scroll_card.is-next {
-    transform: translate3d(calc(-50% + (var(--reference-active-width) / 2) - .85rem), 0, 0);
+    transform: translate3d(calc(-50% + (var(--reference-active-width) / 2) + var(--reference-gap) + (var(--reference-slim-width) / 2)), 0, 0);
   }
 
   .reference-scroll_card.is-far-prev {
-    transform: translate3d(calc(-50% - (var(--reference-active-width) / 2) - 1.75rem), 0, 0);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(calc(-50% - (var(--reference-active-width) / 2) - 2rem), 0, 0);
   }
 
   .reference-scroll_card.is-far-next {
-    transform: translate3d(calc(-50% + (var(--reference-active-width) / 2) + 1.75rem), 0, 0);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(calc(-50% + (var(--reference-active-width) / 2) + 2rem), 0, 0);
   }
 
   /* Reposition only the rear card invisibly when it crosses the loop seam. */
