@@ -5113,18 +5113,18 @@ figcaption {
 
   .reference-scroll_card {
     border-radius: 2rem;
-    width: .75rem;
+    width: 2rem;
     transition: transform .32s cubic-bezier(.22, 1, .36, 1), width .24s cubic-bezier(.22, 1, .36, 1), opacity .18s ease-out;
   }
 
   .reference-scroll_card.is-active {
-    width: calc(100vw - 2.5rem);
+    width: 84vw;
   }
 
   .reference-scroll_track {
-    --reference-active-width: calc(100vw - 2.5rem);
-    --reference-slim-width: .75rem;
-    --reference-gap: .4rem;
+    --reference-active-width: 84vw;
+    --reference-slim-width: 2rem;
+    --reference-gap: .45rem;
     height: 28rem;
     touch-action: pan-y;
   }
