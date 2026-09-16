@@ -41,7 +41,7 @@
 (function () {
   var titles = Array.prototype.slice.call(document.querySelectorAll(".webpeak-stat-title"));
   var swissMadeTitle = titles.find(function (title) {
-    return title.textContent.trim() === "Swiss Made";
+    return ["Swiss Made", "Aus Schweizer Hand"].indexOf(title.textContent.trim()) !== -1;
   });
 
   if (!swissMadeTitle || swissMadeTitle.querySelector(".webpeak-swiss-emblem")) return;
