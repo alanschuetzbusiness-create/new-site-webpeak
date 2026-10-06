@@ -10,7 +10,21 @@
     var circles = Array.prototype.slice.call(timeline.querySelectorAll(".timeline_circle"));
     var journeySection = timeline.closest("#webpeak-journey");
     var contentRight = timeline.querySelector(".timeline_content-right");
-    var nextSection = journeySection ? journeySection.nextElementSibling : null;
+
+    function findNextFlowSection() {
+      var candidate = journeySection ? journeySection.nextElementSibling : null;
+
+      while (candidate) {
+        var style = window.getComputedStyle(candidate);
+        var isOutOfFlow = style.position === "fixed" || style.position === "absolute";
+        var isHidden = candidate.hidden || style.display === "none" || candidate.offsetHeight === 0;
+
+        if (!isOutOfFlow && !isHidden) return candidate;
+        candidate = candidate.nextElementSibling;
+      }
+
+      return null;
+    }
 
     if (!rows.length || !progress) return;
 
@@ -24,6 +38,7 @@
       if (!contentRight) return;
 
       contentRight.style.paddingBottom = "0px";
+      var nextSection = findNextFlowSection();
       if (window.matchMedia("(max-width: 991px), (prefers-reduced-motion: reduce)").matches || !nextSection) return;
 
       var lastCircle = circles[circles.length - 1];

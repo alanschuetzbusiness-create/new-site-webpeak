@@ -3044,10 +3044,10 @@ figcaption {
 
 .webpeak-stat-title {
   font-family: var(--fonts--space-grotesk);
-  font-size: var(--text-size--h3);
+  font-size: 2rem;
   line-height: var(--line-height--headings);
   font-weight: var(--fonts-weight--headings);
-  letter-spacing: -.03em;
+  letter-spacing: -.02em;
 }
 
 .icon-1x1-large {
@@ -9640,5 +9640,559 @@ html {
       linear-gradient(#151719, #151719) bottom / 100% 3px no-repeat;
     border-radius: 2px;
     display: block;
+  }
+}
+
+/* Webpeak Ablauf-Phasen (Sektion "In vier Phasen") */
+.webpeak-phases_header {
+  max-width: 48rem;
+}
+
+.webpeak-phases_intro {
+  margin-top: var(--spacing--small);
+  color: var(--neutral-colors--black-transparent);
+}
+
+.webpeak-phases_tablist {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--spacing--xsmall);
+  margin-top: var(--spacing--large);
+  border-bottom: 1px solid var(--borders--borders);
+}
+
+.webpeak-phases_tab {
+  appearance: none;
+  display: flex;
+  align-items: baseline;
+  column-gap: .5rem;
+  margin: 0 0 -1px;
+  padding: 0 0 var(--spacing--small);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-family: var(--fonts--inter);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  text-align: left;
+  color: #1a1c1c73;
+  cursor: pointer;
+  transition: color .25s ease, border-color .25s ease;
+}
+
+.webpeak-phases_tab:hover {
+  color: var(--neutral-colors--almost-black);
+}
+
+.webpeak-phases_tab:focus-visible {
+  outline: 2px solid var(--main-colors--blue-700);
+  outline-offset: .35rem;
+  border-radius: .35rem;
+}
+
+.webpeak-phases_tab.is-active {
+  color: var(--neutral-colors--almost-black);
+  border-bottom-color: var(--neutral-colors--almost-black);
+}
+
+.webpeak-phases_tabnumber {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: var(--text-size--small);
+  font-weight: 600;
+  color: var(--main-colors--blue-500);
+}
+
+.webpeak-phases_panel {
+  display: none;
+}
+
+.webpeak-phases_panel.is-active {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  column-gap: var(--spacing--large);
+  row-gap: var(--spacing--large);
+  margin-top: var(--spacing--large);
+}
+
+.webpeak-phases_panel.is-active.is-entering {
+  animation: webpeak-phases-in .55s cubic-bezier(0, .71, .2, 1.01) both;
+}
+
+@keyframes webpeak-phases-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.webpeak-phases_copy {
+  display: flex;
+  flex-direction: column;
+  row-gap: .5rem;
+  max-width: 40rem;
+  padding-top: var(--spacing--tiny);
+}
+
+.webpeak-phases_meta {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: var(--text-size--small);
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--main-colors--blue-500);
+}
+
+.webpeak-phases_title {
+  font-size: var(--text-size--h3);
+}
+
+.webpeak-phases_text {
+  font-size: var(--text-size--medium);
+  color: var(--neutral-colors--black-transparent);
+}
+
+.webpeak-phases_cta {
+  display: inline-flex;
+  align-items: center;
+  column-gap: .75rem;
+  width: fit-content;
+  margin-top: var(--spacing--medium);
+  padding: var(--spacing--xxxsmall) var(--spacing--small);
+  border: var(--border-width--border-width) solid var(--borders--borders);
+  border-radius: var(--border-radius--border-radius-medium);
+  font-size: var(--text-size--medium);
+  font-weight: 500;
+  color: var(--neutral-colors--almost-black);
+  text-decoration: none;
+  transition: border-color .3s cubic-bezier(.445, .05, .55, .95),
+    background-color .3s cubic-bezier(.445, .05, .55, .95);
+}
+
+.webpeak-phases_cta:hover {
+  border-color: var(--main-colors--blue-700);
+  background-color: var(--neutral-colors--white);
+}
+
+.webpeak-phases_cta-arrow {
+  transition: transform .3s cubic-bezier(.445, .05, .55, .95);
+}
+
+.webpeak-phases_cta:hover .webpeak-phases_cta-arrow {
+  transform: translateX(.25rem);
+}
+
+.webpeak-phases_media {
+  border: var(--border-width--border-width) solid var(--borders--borders);
+  border-radius: 2.25rem;
+  background-color: transparent;
+  padding: .5rem;
+  overflow: hidden;
+}
+
+.webpeak-phases_image {
+  display: block;
+  width: 100%;
+  height: clamp(18rem, 30vw, 26rem);
+  border-radius: 1.75rem;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
+}
+
+.webpeak-phases_media:hover .webpeak-phases_image {
+  transform: scale(1.055);
+}
+
+@media screen and (max-width: 991px) {
+  .webpeak-phases_panel.is-active {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .webpeak-phases_tab {
+    padding-bottom: var(--spacing--xsmall);
+  }
+
+  .webpeak-phases_tabnumber {
+    display: none;
+  }
+
+  .webpeak-phases_image {
+    height: 16rem;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .webpeak-phases_panel.is-active.is-entering {
+    animation: none;
+  }
+
+  .webpeak-phases_image,
+  .webpeak-phases_media:hover .webpeak-phases_image {
+    transform: scale(1.02);
+    transition: none;
+  }
+}
+
+/* SEO customer tabs: a maximum of four customers in the visible window. */
+.webpeak-phases_header { max-width: 64rem; }
+.webpeak-phases_navigation { display: flex; align-items: center; gap: 1rem; margin-top: var(--spacing--large); }
+.webpeak-phases_tablist { flex: 1; min-width: 0; margin-top: 0; column-gap: 1rem; }
+.webpeak-phases_tab {
+  min-width: 0;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  min-height: 5rem;
+  overflow-wrap: anywhere;
+  color: #626969;
+  text-align: center;
+}
+.webpeak-phases_tab.is-active { border-bottom-color: #FFE87D; }
+.webpeak-phases_tab[hidden] { display: none; }
+.webpeak-phases_arrow { flex: 0 0 3rem; width: 3rem; height: 3rem; display: grid; place-items: center; border: 1px solid var(--borders--borders); border-radius: 50%; background: white; color: var(--neutral-colors--almost-black); cursor: pointer; transition: background .2s; }
+.webpeak-phases_arrow:hover:not(:disabled) { background: var(--main-colors--blue-100); }
+.webpeak-phases_arrow:disabled { opacity: .3; cursor: default; }
+.webpeak-phases_arrow:focus-visible { outline: 2px solid var(--main-colors--blue-700); outline-offset: 3px; }
+.webpeak-phases_image { object-fit: contain; padding: .25rem; }
+.webpeak-phases_customer-name { display: grid; place-items: center; height: clamp(18rem,30vw,26rem); padding: 2rem; font-family: var(--fonts--space-grotesk); font-size: clamp(1.5rem,3vw,2.5rem); text-align: center; overflow-wrap: anywhere; }
+@media screen and (max-width: 767px) {
+ .webpeak-phases_navigation { gap: .5rem; }
+ .webpeak-phases_tablist { grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: .5rem; }
+ .webpeak-phases_arrow { flex-basis: 2.25rem; width: 2.25rem; height: 2.25rem; }
+ .webpeak-phases_tab { min-height: 5rem; }
+ .webpeak-phases_customer-name { height: 16rem; }
+}
+
+/* Match the white rounded surface used by the suitable-projects section. */
+.webpeak-seo-card {
+  padding: clamp(2.5rem, 5vw, 4.5rem);
+  border-radius: var(--border-radius--border-radius-large, 2rem);
+  background: var(--neutral-colors--white, #fff);
+}
+@media screen and (max-width: 767px) {
+  .webpeak-seo-card { padding: 1.5rem; }
+  .webpeak-seo-card .webpeak-phases_cta { max-width: 100%; font-size: .875rem; padding-inline: 1rem; }
+}
+
+/* Verified Swiss Tallow Google rankings supplied in the SEO report. */
+.webpeak-seo-rankings {
+  margin-top: 1.25rem;
+}
+
+.webpeak-seo-rankings-title {
+  margin-bottom: .55rem;
+  font-size: .875rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--main-colors--blue-500);
+}
+
+.webpeak-seo-ranking-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--borders--borders);
+}
+
+.webpeak-seo-ranking-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: .55rem 0;
+  border-bottom: 1px solid var(--borders--borders);
+  font-size: .925rem;
+  line-height: 1.3;
+}
+
+.webpeak-seo-ranking-list strong {
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  background: #FFE87D;
+  font-size: .8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+#ablauf-panel-1.webpeak-phases_panel.is-active {
+  align-items: start;
+}
+
+@media screen and (max-width: 767px) {
+  .webpeak-seo-ranking-list li {
+    gap: .65rem;
+    font-size: .875rem;
+  }
+}
+
+/* Keep the full customer names on a single line on wide screens. */
+@media screen and (min-width: 1200px) {
+  .webpeak-phases_tab {
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+}
+
+/* Contact details sit directly below the degree line in the about section. */
+.webpeak-demo-person-copy .webpeak-demo-contact {
+  margin-top: 0;
+  gap: .5rem;
+}
+
+/*
+ * Role, degree, phone and e-mail form one block: they inherit the regular
+ * paragraph typography and share a single rhythm between the lines.
+ */
+.webpeak-demo-person-copy .webpeak-demo-person-role,
+.webpeak-demo-person-copy p,
+.webpeak-demo-person-copy .webpeak-demo-contact-link {
+  font-family: var(--fonts--inter);
+  font-size: var(--text-size--medium);
+  font-weight: 400;
+  line-height: inherit;
+  color: var(--neutral-colors--black-transparent);
+}
+
+.webpeak-demo-person-copy .webpeak-demo-person-role,
+.webpeak-demo-person-copy p {
+  margin-bottom: .5rem;
+}
+
+/* Keep the contact links recognisable on hover after unifying the text style. */
+.webpeak-demo-person-copy .webpeak-demo-contact-link:hover {
+  color: var(--main-colors--blue-700);
+}
+
+/* Hero subtitle: two sentences with a small gap between them. */
+.webpeak-hero-sub-line {
+  display: block;
+}
+
+.webpeak-hero-sub-line + .webpeak-hero-sub-line {
+  margin-top: .75rem;
+}
+
+/* Result sentence sits on its own line below the customer text. */
+.webpeak-phases-result {
+  display: block;
+  margin-top: .75rem;
+}
+
+/* Kundenstimmen: Karten-Karussell direkt unterhalb der SEO-Erfolge. */
+.webpeak-reviews_header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  column-gap: var(--spacing--medium);
+  row-gap: var(--spacing--small);
+}
+
+.webpeak-reviews_heading {
+  max-width: 44rem;
+}
+
+.webpeak-reviews_intro {
+  margin-top: var(--spacing--small);
+  font-family: var(--fonts--inter);
+  font-size: var(--text-size--medium);
+  line-height: 1.5;
+  color: var(--neutral-colors--black-transparent);
+}
+
+.webpeak-reviews_controls {
+  flex: none;
+  display: flex;
+  column-gap: .75rem;
+}
+
+.webpeak-reviews_section.is-no-overflow .webpeak-reviews_controls {
+  display: none;
+}
+
+.webpeak-reviews_arrow {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid var(--borders--borders);
+  border-radius: 50%;
+  background-color: var(--neutral-colors--white);
+  color: var(--neutral-colors--almost-black);
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+
+.webpeak-reviews_arrow:hover:not(:disabled) {
+  background-color: var(--main-colors--blue-100);
+}
+
+.webpeak-reviews_arrow:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.webpeak-reviews_arrow:focus-visible {
+  outline: 2px solid var(--main-colors--blue-700);
+  outline-offset: 3px;
+}
+
+.webpeak-reviews_track {
+  display: flex;
+  gap: 1rem;
+  margin: var(--spacing--large) 0 0;
+  padding: 0 0 .25rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.webpeak-reviews_track::-webkit-scrollbar {
+  display: none;
+}
+
+.webpeak-reviews_track:focus-visible {
+  outline: 2px solid var(--main-colors--blue-700);
+  outline-offset: .5rem;
+  border-radius: 1rem;
+}
+
+.webpeak-reviews_item {
+  flex: 0 0 86%;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.webpeak-reviews_card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.15rem;
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--borders--borders);
+  border-radius: 1.75rem;
+  background-color: var(--neutral-colors--white);
+}
+
+.webpeak-reviews_author {
+  display: flex;
+  align-items: center;
+  column-gap: .75rem;
+}
+
+.webpeak-reviews_rating {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: .1em;
+  color: #FFBF00;
+}
+
+.webpeak-reviews_rating::before {
+  content: "\2605\2605\2605\2605\2605";
+}
+
+.webpeak-reviews_avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: .35rem;
+  border: 1px solid var(--borders--borders);
+  border-radius: 50%;
+  background-color: var(--neutral-colors--white);
+  overflow: hidden;
+}
+
+.webpeak-reviews_avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.webpeak-reviews_ident {
+  display: flex;
+  flex-direction: column;
+  row-gap: .1rem;
+  min-width: 0;
+}
+
+.webpeak-reviews_name {
+  font-family: var(--fonts--space-grotesk);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--neutral-colors--almost-black);
+}
+
+.webpeak-reviews_meta {
+  font-family: var(--fonts--inter);
+  font-size: .8125rem;
+  line-height: 1.3;
+  color: var(--neutral-colors--black-transparent);
+}
+
+.webpeak-reviews_comment {
+  font-family: var(--fonts--inter);
+  font-size: var(--text-size--regular);
+  line-height: 1.5;
+  color: var(--neutral-colors--black-transparent);
+}
+
+@media screen and (min-width: 768px) {
+  .webpeak-reviews_item {
+    flex-basis: 62%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .webpeak-reviews_item {
+    flex-basis: 47%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .webpeak-reviews_item {
+    flex-basis: calc((100% - 2rem) / 3);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .webpeak-reviews_header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .webpeak-reviews_arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .webpeak-reviews_card {
+    padding: 1.25rem;
+  }
+}
+
+/* Mobile: the SEO tabs show text only, the Google screenshots are omitted. */
+@media screen and (max-width: 767px) {
+  .webpeak-phases_media {
+    display: none;
   }
 }

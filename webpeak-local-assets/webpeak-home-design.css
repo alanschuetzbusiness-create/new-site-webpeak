@@ -44,6 +44,8 @@
   min-width: 0;
   padding: 1.5rem 1.75rem;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   opacity: 0;
   transition: opacity 720ms cubic-bezier(.16, 1, .3, 1) 980ms;
 }
@@ -55,8 +57,10 @@
 
 .webpeak-home-design-title {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: .75rem;
+  text-align: center;
 }
 
 .webpeak-home-design-title img {
@@ -65,20 +69,20 @@
   flex: 0 0 auto;
 }
 
-.webpeak-home-design-title h3 {
+.webpeak-home-design-label {
   margin: 0;
   color: var(--neutral-colors--almost-black, #1a1c1c);
-  font-family: var(--fonts--space-grotesk);
-  font-size: 1.375rem;
-  font-weight: 600;
-  letter-spacing: -.01em;
-  line-height: 1.22;
+  font-family: var(--fonts--inter);
+  font-size: var(--text-size--medium);
+  font-weight: var(--fonts-weight--regular-text);
+  letter-spacing: normal;
+  line-height: var(--line-height--paragraphs);
 }
 
 .webpeak-home-design-line {
   position: absolute;
   display: block;
-  background: var(--main-colors--blue-300, #abd7ee);
+  background: #FFBF00;
   opacity: 0;
   pointer-events: none;
   transition: transform 1080ms cubic-bezier(.16, 1, .3, 1), opacity 0s linear 1080ms;
@@ -160,9 +164,9 @@ html.webpeak-home-design-modal-open { overflow: hidden; }
   .webpeak-home-design-item { padding: .85rem; }
   .webpeak-home-design-item:nth-child(odd) { padding-right: 2.5rem; }
   .webpeak-home-design-item:nth-child(even) { padding-right: .85rem; padding-left: 2.5rem; }
-  .webpeak-home-design-title { flex-direction: column; align-items: flex-start; gap: .45rem; }
+  .webpeak-home-design-title { flex-direction: column; align-items: center; gap: .45rem; text-align: center; }
   .webpeak-home-design-title img { width: 1.5rem; height: 1.5rem; }
-  .webpeak-home-design-title h3 { font-size: 1.1rem; line-height: 1.18; }
+  .webpeak-home-design-label { font-size: var(--text-size--medium); line-height: var(--line-height--paragraphs); }
   .webpeak-home-design-modal-header { padding-right: 2rem; text-align: left; }
   .webpeak-home-design-form,
   .webpeak-home-design-form-grid { grid-template-columns: 1fr; }
