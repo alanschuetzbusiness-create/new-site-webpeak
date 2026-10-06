@@ -6107,6 +6107,20 @@ figcaption {
   transform: rotate(-2deg);
 }
 
+/*
+ * The section above ends with its own inner padding, so the banner needs the
+ * same amount below it. Otherwise the gap under the banner is much smaller.
+ */
+.webpeak-pricing-banner-section {
+  padding-bottom: var(--spacing--xxlarge);
+}
+
+@media screen and (max-width: 767px) {
+  .webpeak-pricing-banner-section {
+    padding-bottom: 2rem;
+  }
+}
+
 .banner_component {
   white-space: nowrap;
   display: flex;
