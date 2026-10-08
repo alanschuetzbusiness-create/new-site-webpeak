@@ -23,7 +23,7 @@
         '</div>'
       ].join("");
       var gwServicesCard = Array.prototype.find.call(track.querySelectorAll(".reference-scroll_card"), function (card) {
-        return card.textContent.indexOf("GWServices") !== -1;
+        return card.textContent.toLowerCase().indexOf("gwservices") !== -1;
       });
       if (gwServicesCard) {
         gwServicesCard.insertAdjacentElement("afterend", liquidMetalCard);
