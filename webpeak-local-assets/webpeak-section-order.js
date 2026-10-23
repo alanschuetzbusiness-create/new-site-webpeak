@@ -11,7 +11,7 @@
     }
 
     if (description) {
-      description.innerHTML = "Für seriöse Unternehmen und Projekte.<br>Persönlich gestaltet in der Schweiz.";
+      description.textContent = "Für seriöse Unternehmen und Projekte. Persönlich gestaltet in der Schweiz.";
     }
   }
 
