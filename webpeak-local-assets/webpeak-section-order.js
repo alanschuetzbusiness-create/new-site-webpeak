@@ -76,9 +76,19 @@
     var stackComponent = document.querySelector(".webpeak-lead-stack-component");
     var stackSection = stackComponent && stackComponent.closest("section.section");
     var contactSection = document.querySelector("#kontakt-direkt");
+    var referencesSection = document.querySelector("#referenzen-scroll");
+    var reviewsSection = document.querySelector("#kundenstimmen");
 
     if (journeySection && fitSection) {
       journeySection.insertAdjacentElement("afterend", fitSection);
+    }
+
+    if (journeySection && referencesSection) {
+      journeySection.insertAdjacentElement("afterend", referencesSection);
+    }
+
+    if (referencesSection && reviewsSection) {
+      referencesSection.insertAdjacentElement("afterend", reviewsSection);
     }
 
     if (stackSection && contactSection) {
