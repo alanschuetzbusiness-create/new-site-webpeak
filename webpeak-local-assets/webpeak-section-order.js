@@ -6,7 +6,7 @@
     var description = document.querySelector(".hero-header_content .text-size-medium");
 
     if (titleLines.length >= 2) {
-      titleLines[0].textContent = "Wir erstellen Ihre neue Startseite.";
+      titleLines[0].textContent = "Wir erstellen Ihre neue Webseite.";
       titleLines[1].textContent = "Kostenlos und unverbindlich.";
     }
 
