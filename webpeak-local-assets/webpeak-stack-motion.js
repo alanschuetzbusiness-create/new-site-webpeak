@@ -115,7 +115,7 @@
 
 (function () {
   var swissTitle = Array.prototype.slice.call(document.querySelectorAll(".webpeak-stat-title")).find(function (title) {
-    return title.textContent.trim() === "Swiss Made";
+    return ["Swiss Made", "Aus Schweizer Hand"].indexOf(title.textContent.trim()) !== -1;
   });
   if (!swissTitle) return;
 
@@ -123,7 +123,7 @@
   var description = swissItem && swissItem.querySelector("p");
   if (!description) return;
 
-  description.textContent = "Keine KI-Websites und kein billiges Outsourcing. Ihr Design wird von A bis Z in der Schweiz erstellt.";
+  description.textContent = "Individuell gestaltet und persönlich betreut. Mit einer festen Ansprechperson.";
 })();
 
 (function () {

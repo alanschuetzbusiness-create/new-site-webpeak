@@ -15,7 +15,7 @@
 
   var comparisonTitle = comparison.querySelector(".layout-list_left h2");
   if (comparisonTitle) {
-    comparisonTitle.textContent = "Für welche Projekte erstellen wir eine unverbindliche Webseite?";
+    comparisonTitle.textContent = "Für welche Projekte erstellen wir eine unverbindliche Website?";
   }
 
   comparisonGrid.className = "webpeak-fit-cross";
