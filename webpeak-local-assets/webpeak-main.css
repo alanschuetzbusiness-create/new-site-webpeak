@@ -10142,6 +10142,15 @@ html {
   object-fit: contain;
 }
 
+.webpeak-reviews_avatar.is-sofalab {
+  padding: 0;
+}
+
+.webpeak-reviews_avatar.is-sofalab img {
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
 .webpeak-reviews_ident {
   display: flex;
   flex-direction: column;
