@@ -88,6 +88,7 @@
 }
 
 .webpeak-lead-video {
+  position: relative;
   width: 100%;
   margin: 0;
   overflow: hidden;
@@ -102,6 +103,63 @@
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
+}
+
+.webpeak-lead-video video::-webkit-media-controls-overlay-play-button {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.webpeak-lead-video-play {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: clamp(5rem, 8vw, 6.5rem);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1rem 2.8rem rgba(11, 31, 58, .3);
+  padding: 0;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+
+.webpeak-lead-video-play:hover {
+  background: #fff;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.webpeak-lead-video-play:focus-visible {
+  outline: .2rem solid #0069ff;
+  outline-offset: .22rem;
+}
+
+.webpeak-lead-video-play.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(.9);
+}
+
+.webpeak-lead-video-play-icon {
+  width: 0;
+  height: 0;
+  margin-left: .35rem;
+  border-top: .85rem solid transparent;
+  border-bottom: .85rem solid transparent;
+  border-left: 1.35rem solid #0b1f3a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .webpeak-lead-video-play {
+    transition: none;
+  }
 }
 
 .webpeak-lead-form {

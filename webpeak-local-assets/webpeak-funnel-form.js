@@ -258,3 +258,36 @@
     init();
   }
 })();
+
+(function () {
+  function initVideoPlayButton() {
+    var wrapper = document.querySelector(".webpeak-lead-video");
+    if (!wrapper) return;
+
+    var video = wrapper.querySelector("video");
+    var button = wrapper.querySelector(".webpeak-lead-video-play");
+    if (!video || !button) return;
+
+    function syncButton() {
+      button.classList.toggle("is-hidden", !video.paused && !video.ended);
+    }
+
+    button.addEventListener("click", function () {
+      video.play().catch(function () {
+        syncButton();
+      });
+    });
+
+    video.addEventListener("play", syncButton);
+    video.addEventListener("playing", syncButton);
+    video.addEventListener("pause", syncButton);
+    video.addEventListener("ended", syncButton);
+    syncButton();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initVideoPlayButton);
+  } else {
+    initVideoPlayButton();
+  }
+})();
