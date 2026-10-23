@@ -549,10 +549,6 @@
 }
 
 @media screen and (min-width: 992px) {
-  .webpeak-lead-privacy {
-    transform: translateY(1rem);
-  }
-
   .webpeak-pricing-banner-section {
     padding-bottom: 0;
     margin-bottom: -1rem;
