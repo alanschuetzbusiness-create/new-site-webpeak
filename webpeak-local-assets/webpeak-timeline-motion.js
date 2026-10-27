@@ -73,6 +73,7 @@
     }
 
     function update() {
+      if (journeySection && journeySection.classList.contains("has-mobile-journey")) return;
       syncLineEnd();
 
       var firstCircle = circles[0];

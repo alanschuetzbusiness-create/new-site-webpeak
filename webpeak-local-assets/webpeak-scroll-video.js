@@ -1,5 +1,6 @@
 (function () {
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var reduceMotion = motionPreference.matches;
   var stage = document.querySelector(".webpeak-scroll-video");
   if (!stage) return;
 
@@ -145,6 +146,9 @@
   }
 
   function readProgress() {
+    if (isJourneyVideo && window.webpeakMobileJourney && window.webpeakMobileJourney.active) {
+      return window.webpeakMobileJourney.progress;
+    }
     if (isJourneyVideo && window.matchMedia("(max-width: 767px)").matches) {
       var stageRect = stage.getBoundingClientRect();
       var stageTravel = Math.max(1, stageRect.height - window.innerHeight);
@@ -225,7 +229,17 @@
   cacheJourneyBounds();
   update();
   window.addEventListener("scroll", requestUpdate, { passive: true });
-  window.addEventListener("resize", requestUpdate);
+  window.addEventListener("resize", function () {
+    journeyStartDocument = null;
+    journeyEndDocument = null;
+    requestUpdate();
+  });
+  motionPreference.addEventListener("change", function () {
+    reduceMotion = motionPreference.matches;
+    journeyStartDocument = null;
+    journeyEndDocument = null;
+    requestUpdate();
+  });
 })();
 
 (function () {
