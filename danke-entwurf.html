@@ -33,12 +33,6 @@
       } catch (error) {}
 
       if (pending && pending.id) {
-        gtag("event", "conversion", {
-          send_to: "AW-18375276150/nePrCI_hmt0cEPbsgbpE",
-          value: 1.0,
-          currency: "CHF"
-        });
-
         window.dataLayer.push({
           event: "webpeak_generate_lead",
           lead_id: pending.id,
