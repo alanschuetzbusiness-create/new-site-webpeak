@@ -30,6 +30,11 @@
     gap: 16px;
   }
 
+  .journey-mobile-runway.is-returning .journey-mobile-scene {
+    position: relative;
+    top: 0 !important;
+  }
+
   #webpeak-journey.has-mobile-journey .timeline_content-right {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

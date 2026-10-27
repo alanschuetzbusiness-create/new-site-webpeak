@@ -31,6 +31,24 @@
 
   function clamp(value) { return Math.max(0, Math.min(1, value)); }
 
+  function setReturning(returning) {
+    if (state.returning === returning) return;
+    var root = document.documentElement;
+    var previousAnchor = root.style.overflowAnchor;
+    var before = section.getBoundingClientRect().bottom;
+    // The completed scroll runway is entirely above the viewport. Removing it
+    // must leave the following content at exactly the same screen position.
+    if (returning) root.style.overflowAnchor = 'none';
+    state.returning = returning;
+    runway.classList.toggle('is-returning', returning);
+    runway.style.height = (scene.offsetHeight + (returning ? 0 : travel)) + 'px';
+    if (returning) {
+      var shift = section.getBoundingClientRect().bottom - before;
+      window.scrollBy({ top: shift, left: 0, behavior: 'instant' });
+      requestAnimationFrame(function () { root.style.overflowAnchor = previousAnchor; });
+    }
+  }
+
   function render() {
     if (state.progress === lastRendered) return;
     lastRendered = state.progress;
@@ -60,14 +78,19 @@
     ticking = false;
     if (!state.active) { lastTime = 0; return; }
     var rect = runway.getBoundingClientRect();
+    if (!state.returning && rect.bottom + sectionTail <= 0) {
+      setReturning(true);
+      rect = runway.getBoundingClientRect();
+    } else if (state.returning && section.getBoundingClientRect().top >= window.innerHeight) {
+      // Re-arm only after the whole section has left the screen below. The
+      // return trip therefore stays normal document flow all the way through.
+      setReturning(false);
+      rect = runway.getBoundingClientRect();
+    }
     var raw = clamp((stickyTop - rect.top) / travel);
     // Browser scroll positions are rounded; settle cleanly on the end frames.
     if (raw < .0005) raw = 0;
     if (raw > .9995) raw = 1;
-    // Reset only once the entire section is offscreen, never while the last
-    // card is still being read. On the return trip keep the first step visible.
-    if (rect.bottom + sectionTail <= 0) state.returning = true;
-    if (raw === 0) state.returning = false;
     targetProgress = state.returning ? 0 : raw;
     var elapsed = lastTime ? Math.min(64, time - lastTime) : 16.7;
     lastTime = time;
@@ -104,7 +127,7 @@
     stickyTop = Math.min(stickyTop, layoutHeight - scene.offsetHeight - 16);
     scene.style.top = stickyTop + 'px';
     travel = Math.max(480, layoutHeight * .85) * (rows.length - 1);
-    runway.style.height = (scene.offsetHeight + travel) + 'px';
+    runway.style.height = (scene.offsetHeight + (state.returning ? 0 : travel)) + 'px';
     sectionTail = section.getBoundingClientRect().bottom - runway.getBoundingClientRect().bottom;
     requestUpdate();
   }
@@ -114,6 +137,7 @@
     if (enabled !== state.active) {
       state.active = enabled;
       state.returning = false;
+      runway.classList.remove('is-returning');
       state.progress = 0;
       lastRendered = -1;
       lastActive = -1;
