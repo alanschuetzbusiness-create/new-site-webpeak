@@ -27,6 +27,11 @@
   var pendingFrame = null;
   var journeyStartDocument = null;
   var journeyEndDocument = null;
+  var blendedPosition = -1;
+
+  function isMobileJourney() {
+    return isJourneyVideo && window.webpeakMobileJourney && window.webpeakMobileJourney.active;
+  }
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -63,18 +68,29 @@
     var image = new Image();
     image.decoding = "async";
     image.onload = function () {
-      loadedFrames[index] = true;
-      if (currentFrame === -1 && index === 0) {
-        setFrameByIndex(0);
+      function ready() {
+        loadedFrames[index] = true;
+        if (isMobileJourney()) {
+          var position = window.webpeakMobileJourney.progress * (frameCount - 1);
+          if (index === Math.floor(position) || index === Math.ceil(position)) {
+            blendedPosition = -1;
+            setMobileFrame(window.webpeakMobileJourney.progress);
+          }
+        } else {
+          if (currentFrame === -1 && index === 0) setFrameByIndex(0);
+          if (pendingFrame === index) {
+            pendingFrame = null;
+            setFrameByIndex(index);
+          }
+        }
       }
-      if (pendingFrame === index) {
-        pendingFrame = null;
-        setFrameByIndex(index);
-      }
+      // Decode before the image is needed by a scroll frame on mobile.
+      if (isMobileJourney() && image.decode) image.decode().then(ready, function () {});
+      else ready();
     };
     image.src = frameUrl(index);
     preloadedFrames[index] = image;
-    if (image.complete && image.naturalWidth > 0) {
+    if (!isMobileJourney() && image.complete && image.naturalWidth > 0) {
       loadedFrames[index] = true;
     }
   }
@@ -103,13 +119,35 @@
   }
 
   function setFrameByIndex(index) {
-    if (index === currentFrame) return;
+    if (index === currentFrame && blendedPosition === -1) return;
     var image = preloadedFrames[index];
     if (canvasContext && image && image.complete && image.naturalWidth > 0) {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
       canvasContext.drawImage(image, 0, 0, canvas.width, canvas.height);
     }
     currentFrame = index;
+    blendedPosition = -1;
+  }
+
+  function setMobileFrame(progress) {
+    if (!isSequence || !canvasContext) return;
+    var position = clamp(progress, 0, 1) * (frameCount - 1);
+    if (position === blendedPosition) return;
+    var lower = Math.floor(position);
+    var upper = Math.min(frameCount - 1, Math.ceil(position));
+    preloadAround(lower);
+    if (!loadedFrames[lower] || !loadedFrames[upper]) return;
+    // Blend neighbouring decoded frames instead of visibly snapping between
+    // 48 still images. The first opaque draw also clears the previous blend.
+    canvasContext.globalAlpha = 1;
+    canvasContext.drawImage(preloadedFrames[lower], 0, 0, canvas.width, canvas.height);
+    if (upper !== lower && position > lower) {
+      canvasContext.globalAlpha = position - lower;
+      canvasContext.drawImage(preloadedFrames[upper], 0, 0, canvas.width, canvas.height);
+      canvasContext.globalAlpha = 1;
+    }
+    currentFrame = -1;
+    blendedPosition = position;
   }
 
   function setFrame(progress) {
@@ -125,6 +163,10 @@
   }
 
   function applyVisuals(progress) {
+    if (isMobileJourney()) {
+      setMobileFrame(window.webpeakMobileJourney.progress);
+      return;
+    }
     if (reduceMotion) {
       frame.style.transform = "";
       media.style.transform = "";
@@ -172,6 +214,10 @@
 
   function animate() {
     animationActive = false;
+    if (isMobileJourney()) {
+      setMobileFrame(window.webpeakMobileJourney.progress);
+      return;
+    }
 
     if (targetProgress >= .999) {
       smoothProgress = 1;
@@ -201,6 +247,7 @@
   }
 
   function requestUpdate() {
+    if (isMobileJourney()) return;
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(update);
@@ -228,6 +275,9 @@
 
   cacheJourneyBounds();
   update();
+  window.addEventListener('webpeak:journey-progress', function () {
+    if (isMobileJourney()) setMobileFrame(window.webpeakMobileJourney.progress);
+  });
   window.addEventListener("scroll", requestUpdate, { passive: true });
   window.addEventListener("resize", function () {
     journeyStartDocument = null;

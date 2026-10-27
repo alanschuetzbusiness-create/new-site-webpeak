@@ -19,15 +19,21 @@
   var travel = 1;
   var stickyTop = 90;
   var ticking = false;
-  var state = { active: false, progress: 0 };
+  var targetProgress = 0;
+  var lastTime = 0;
+  var lastActive = -1;
+  var lastRendered = -1;
+  var layoutWidth = 0;
+  var layoutHeight = 0;
+  var sectionTail = 0;
+  var state = { active: false, progress: 0, returning: false };
   window.webpeakMobileJourney = state;
 
   function clamp(value) { return Math.max(0, Math.min(1, value)); }
 
-  function update() {
-    ticking = false;
-    if (!state.active) return;
-    state.progress = clamp((stickyTop - runway.getBoundingClientRect().top) / travel);
+  function render() {
+    if (state.progress === lastRendered) return;
+    lastRendered = state.progress;
     var position = state.progress * (rows.length - 1);
     var step = Math.floor(position);
     // A reading pause at each step, followed by a reversible sideways wipe.
@@ -39,10 +45,41 @@
       var distance = index - slide;
       row.style.transform = 'translate3d(' + (distance * 108).toFixed(3) + '%,0,0)';
       row.style.opacity = String(1 - Math.min(1, Math.abs(distance)) * .35);
-      row.setAttribute('aria-hidden', index === active ? 'false' : 'true');
-      row.inert = index !== active;
+      if (active !== lastActive) {
+        row.setAttribute('aria-hidden', index === active ? 'false' : 'true');
+        row.inert = index !== active;
+      }
     });
-    section.dataset.journeyStep = String(active + 1);
+    if (active !== lastActive) section.dataset.journeyStep = String(active + 1);
+    lastActive = active;
+    // One animation clock for both the cards and the mountain canvas.
+    window.dispatchEvent(new Event('webpeak:journey-progress'));
+  }
+
+  function update(time) {
+    ticking = false;
+    if (!state.active) { lastTime = 0; return; }
+    var rect = runway.getBoundingClientRect();
+    var raw = clamp((stickyTop - rect.top) / travel);
+    // Browser scroll positions are rounded; settle cleanly on the end frames.
+    if (raw < .0005) raw = 0;
+    if (raw > .9995) raw = 1;
+    // Reset only once the entire section is offscreen, never while the last
+    // card is still being read. On the return trip keep the first step visible.
+    if (rect.bottom + sectionTail <= 0) state.returning = true;
+    if (raw === 0) state.returning = false;
+    targetProgress = state.returning ? 0 : raw;
+    var elapsed = lastTime ? Math.min(64, time - lastTime) : 16.7;
+    lastTime = time;
+    if (state.returning || reduced.matches) {
+      state.progress = targetProgress;
+    } else {
+      state.progress += (targetProgress - state.progress) * (1 - Math.exp(-elapsed / 65));
+      if (Math.abs(targetProgress - state.progress) < .00005) state.progress = targetProgress;
+    }
+    render();
+    if (state.progress !== targetProgress) requestUpdate();
+    else lastTime = 0;
   }
 
   function requestUpdate() {
@@ -53,26 +90,34 @@
 
   function measure() {
     if (!state.active) return;
+    layoutWidth = window.innerWidth;
+    if (!layoutHeight) layoutHeight = window.innerHeight;
     var nav = document.querySelector('.navbar_component');
     stickyTop = Math.max(86, nav ? nav.getBoundingClientRect().bottom + 12 : 86);
     var cardHeight = cards.offsetHeight;
-    var available = window.innerHeight - stickyTop - cardHeight - 32;
+    var available = layoutHeight - stickyTop - cardHeight - 32;
     var mountainSize = Math.max(120, Math.min(cards.clientWidth, 380, available));
     scene.style.setProperty('--journey-mountain-size', mountainSize + 'px');
     scene.style.top = stickyTop + 'px';
     // If text scaling makes the scene taller than the screen, let its top scroll
     // naturally before pinning so that every line remains reachable.
-    stickyTop = Math.min(stickyTop, window.innerHeight - scene.offsetHeight - 16);
+    stickyTop = Math.min(stickyTop, layoutHeight - scene.offsetHeight - 16);
     scene.style.top = stickyTop + 'px';
-    travel = Math.max(480, window.innerHeight * .85) * (rows.length - 1);
+    travel = Math.max(480, layoutHeight * .85) * (rows.length - 1);
     runway.style.height = (scene.offsetHeight + travel) + 'px';
-    update();
+    sectionTail = section.getBoundingClientRect().bottom - runway.getBoundingClientRect().bottom;
+    requestUpdate();
   }
 
   function configure() {
     var enabled = mobile.matches && !reduced.matches;
     if (enabled !== state.active) {
       state.active = enabled;
+      state.returning = false;
+      state.progress = 0;
+      lastRendered = -1;
+      lastActive = -1;
+      layoutHeight = window.innerHeight;
       section.classList.toggle('has-mobile-journey', enabled);
       if (enabled) {
         content.appendChild(runway);
@@ -96,7 +141,14 @@
 
   configure();
   window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', measure);
+  window.addEventListener('resize', function () {
+    // Mobile browser chrome changes innerHeight while scrolling. Keep the
+    // scene and its scroll distance stable until a real resize/orientation change.
+    if (window.innerWidth !== layoutWidth || Math.abs(window.innerHeight - layoutHeight) > 120) {
+      layoutHeight = window.innerHeight;
+      measure();
+    }
+  });
   window.addEventListener('load', measure, { once: true });
   mobile.addEventListener('change', configure);
   reduced.addEventListener('change', configure);
